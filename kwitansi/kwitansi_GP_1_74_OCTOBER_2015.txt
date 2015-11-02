@@ -1,0 +1,18 @@
+-----------------------------------------------------------------------
+BUKTI PEMBAYARAN UNTUK BULAN OCTOBER TAHUN 2015 SPAMDES TIRTO ROSO
+-----------------------------------------------------------------------
+Nomor			:GP_1_74
+Nama pelanggan		:WIYONO
+Alamat        		:Gamplong 1
+
+Pemakaian			Bulan October 12 m3
+				Bulan September   0 m3
+				____________________ _	
+				Pemakaian        12 m3
+				 
+Rumus			: ((12-10)*2000)+15000 = Rp. 15.000,-	 
+Jumlah dibayar		: Rp. 15.000,-
+Terbilang 		:  LimaBelas Ribu Rupiah
+Admin			: Asbin Arjinto S.Kom
+Tanggal 		: 24-October-2015
+-----------------------------------------------------------------------

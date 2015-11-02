@@ -1,0 +1,18 @@
+-----------------------------------------------------------------------
+BUKTI PEMBAYARAN UNTUK BULAN SEPTEMBER TAHUN 2015 SPAMDES TIRTO ROSO
+-----------------------------------------------------------------------
+Nomor			:GP_1_49
+Nama pelanggan		:AGUNG HIDAYAT
+Alamat        		:Gamplong 1
+
+Pemakaian			Bulan September 199 m3
+				Bulan August   176 m3
+				____________________ _	
+				Pemakaian        23 m3
+				 
+Rumus			: ((23-5)*2000)+15000 = Rp. 51.000,-	 
+Jumlah dibayar		: Rp. 51.000,-
+Terbilang 		:  Lima Puluh Satu Ribu Rupiah
+Admin			: Asbin Arjinto S.Kom
+Tanggal 		: 22-October-2015
+-----------------------------------------------------------------------

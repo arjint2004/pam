@@ -1,0 +1,18 @@
+-----------------------------------------------------------------------
+BUKTI PEMBAYARAN UNTUK BULAN SEPTEMBER TAHUN 2015 SPAMDES TIRTO ROSO
+-----------------------------------------------------------------------
+Nomor			:GP_1_38
+Nama pelanggan		:RAMIYEM
+Alamat        		:Gamplong 1
+
+Pemakaian			Bulan September 228 m3
+				Bulan August   220 m3
+				____________________ _	
+				Pemakaian        8 m3
+				 
+Rumus			: ((8-5)*2000)+15000 = Rp. 21.000,-	 
+Jumlah dibayar		: Rp. 21.000,-
+Terbilang 		:  Dua Puluh Satu Ribu Rupiah
+Admin			: Asbin Arjinto S.Kom
+Tanggal 		: 29-October-2015
+-----------------------------------------------------------------------

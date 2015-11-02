@@ -1,0 +1,17 @@
+-----------------------------------------------------------------------
+bukti pembayaran bulan September 2015 dibayarkan di bulan Oktober 2015
+-----------------------------------------------------------------------
+Nomor			:GP298
+Nama pelanggan		:Asbin arjinto
+Alamat        		:Gamplong 1
+
+Pemakaian			Bulan September 100 m3
+				Bulan Agustus   120 m3
+				____________________ _	
+				Pemakaian        20 m3
+				 
+Rumus			: ((20-5)*2000)+15000 = 45.000	 
+Jumlah dibayar		: Rp 45.000,-
+Terbilang 		: Lima belas ribu rupiah
+Admin			: Asbin Arjinto S.Kom
+Tanggal / Jam		: 19 October 2015 / 23:41

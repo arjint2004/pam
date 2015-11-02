@@ -1,0 +1,18 @@
+-----------------------------------------------------------------------
+BUKTI PEMBAYARAN UNTUK BULAN OCTOBER TAHUN 2015 SPAMDES TIRTO ROSO
+-----------------------------------------------------------------------
+Nomor			:GP_3_45
+Nama pelanggan		:SAMURI
+Alamat        		:Gamplong 3
+
+Pemakaian			Bulan October 14 m3
+				Bulan September   0 m3
+				____________________ _	
+				Pemakaian        14 m3
+				 
+Rumus			: ((14-5)*2000)+15000 = Rp. 15.000,-	 
+Jumlah dibayar		: Rp. 15.000,-
+Terbilang 		:  LimaBelas Ribu Rupiah
+Admin			: Asbin Arjinto S.Kom
+Tanggal 		: 24-October-2015
+-----------------------------------------------------------------------

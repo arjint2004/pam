@@ -1,0 +1,18 @@
+-----------------------------------------------------------------------
+BUKTI PEMBAYARAN UNTUK BULAN OCTOBER TAHUN 2015 SPAMDES TIRTO ROSO
+-----------------------------------------------------------------------
+Nomor			:GP_3_50
+Nama pelanggan		:PURNOMO
+Alamat        		:Gamplong 3
+
+Pemakaian			Bulan October 50 m3
+				Bulan September   0 m3
+				____________________ _	
+				Pemakaian        50 m3
+				 
+Rumus			: ((50-5)*2000)+15000 = Rp. 95.000,-	 
+Jumlah dibayar		: Rp. 95.000,-
+Terbilang 		:  Sembilan Puluh Lima Ribu Rupiah
+Admin			: Asbin Arjinto S.Kom
+Tanggal 		: 24-October-2015
+-----------------------------------------------------------------------

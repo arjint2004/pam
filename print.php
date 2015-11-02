@@ -1,0 +1,1 @@
+<?php exec("lp /home/pi/www/kwitansi.txt");?>

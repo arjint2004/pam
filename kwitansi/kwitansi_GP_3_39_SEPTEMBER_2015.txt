@@ -1,0 +1,18 @@
+-----------------------------------------------------------------------
+BUKTI PEMBAYARAN UNTUK BULAN SEPTEMBER TAHUN 2015 SPAMDES TIRTO ROSO
+-----------------------------------------------------------------------
+Nomor			:GP_3_39
+Nama pelanggan		:SULASTRI
+Alamat        		:Gamplong 3
+
+Pemakaian			Bulan September 212 m3
+				Bulan August   195 m3
+				____________________ _	
+				Pemakaian        17 m3
+				 
+Rumus			: ((17-5)*2000)+15000 = Rp. 39.000,-	 
+Jumlah dibayar		: Rp. 39.000,-
+Terbilang 		:  Tiga Puluh Sembilan Ribu Rupiah
+Admin			: Asbin Arjinto S.Kom
+Tanggal 		: 22-October-2015
+-----------------------------------------------------------------------

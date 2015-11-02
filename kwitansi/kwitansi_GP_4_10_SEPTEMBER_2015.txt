@@ -1,0 +1,18 @@
+-----------------------------------------------------------------------
+BUKTI PEMBAYARAN UNTUK BULAN SEPTEMBER TAHUN 2015 SPAMDES TIRTO ROSO
+-----------------------------------------------------------------------
+Nomor			:GP_4_10
+Nama pelanggan		:SUPRIYATMAN
+Alamat        		:Gamplong 4
+
+Pemakaian			Bulan September 230 m3
+				Bulan August   205 m3
+				____________________ _	
+				Pemakaian        25 m3
+				 
+Rumus			: ((25-5)*2000)+15000 = Rp. 55.000,-	 
+Jumlah dibayar		: Rp. 55.000,-
+Terbilang 		:  Lima Puluh Lima Ribu Rupiah
+Admin			: Asbin Arjinto S.Kom
+Tanggal 		: 30-October-2015
+-----------------------------------------------------------------------

@@ -1,0 +1,18 @@
+-----------------------------------------------------------------------
+BUKTI PEMBAYARAN UNTUK BULAN SEPTEMBER TAHUN 2015 SPAMDES TIRTO ROSO
+-----------------------------------------------------------------------
+Nomor			:GP_3_30
+Nama pelanggan		:MUSHOLA SAWO
+Alamat        		:Gamplong 3
+
+Pemakaian			Bulan September 17 m3
+				Bulan August   17 m3
+				____________________ _	
+				Pemakaian        0 m3
+				 
+Rumus			: ((0-5)*2000)+15000 = Rp. 0,-	 
+Jumlah dibayar		: Rp. 0,-
+Terbilang 		:  Rupiah
+Admin			: Asbin Arjinto S.Kom
+Tanggal 		: 31-October-2015
+-----------------------------------------------------------------------
