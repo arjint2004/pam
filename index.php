@@ -49,7 +49,7 @@ define('ENVIRONMENT', (isset($_SERVER['PYRO_ENV']) ? $_SERVER['PYRO_ENV'] : PYRO
  * By default development will show errors but testing and live will hide them.
  */
 
-	error_reporting(E_ALL);
+	error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
 
 	switch (ENVIRONMENT)
 	{

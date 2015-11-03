@@ -35,7 +35,7 @@
 $db[PYRO_DEVELOPMENT] = array(
 	'hostname'		=> 	'localhost',
 	'username'		=> 	'root',
-	'password'		=> 	'11101985',
+	'password'		=> 	'ubuntu123',
 	'database'		=> 	'pam',
 	'dbdriver' 		=> 	'mysqli',
 	'dbprefix' 		=>	'',

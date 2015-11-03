@@ -65,8 +65,9 @@ class Admin extends Admin_Controller {
 	}
 	public function print_transaksi($file='')
 	{ 
-		exec('lp '.base64_decode($file).'');
-		redirect('admin/pam/pembukuan');
+		exec('lp /var/www/html/pam/trunk/kwitansi/'.base64_decode($file).'');
+		echo 'lp /var/www/html/pam/trunk/kwitansi/'.base64_decode($file).'';
+		//redirect('admin/pam/pembukuan');
 	}
 	public function tambah_transaksi()
 	{
@@ -106,7 +107,7 @@ Terbilang 		: '.Terbilang($_POST['nominal'][$idx]).' Rupiah
 Untuk Pembayaran 	: '.$_POST['keterangan'][$idx].' 
 Tanggal 		: '.$tanggal.'
 -----------------------------------------------------------------------';		
-						$pathkwitansi='/home/pi/trunk/kwitansi/'.$tanggal.'_kwitansi_'.str_replace(' ','_',$rekening[$_POST['kode_rek'][$idx]]['nama']).'.txt';
+						$pathkwitansi='/var/www/html/pam/trunk/kwitansi/'.$tanggal.'_kwitansi_'.str_replace(' ','_',$rekening[$_POST['kode_rek'][$idx]]['nama']).'.txt';
 						file_put_contents($pathkwitansi,$tempprint);
 						//$poiu .='exec("lp '.$pathkwitansi.'",$out'.$idx.'); ';
 					//}	
@@ -117,7 +118,7 @@ Tanggal 		: '.$tanggal.'
 										'keterangan'=>$_POST['keterangan'][$idx],
 										'debit'=>$posisid,
 										'kredit'=>$posisik,
-										'file'=>$pathkwitansi,
+										'file'=>str_replace('/var/www/html/pam/trunk/kwitansi/','',$pathkwitansi),
 					);
 					$this->db->insert('default_pneraca',$datainsert);
 				}
@@ -188,11 +189,11 @@ Tanggal 		: %s
 			$this->db->update('default_pembayaran',$datainsert);		
 		//echo $this->db->last_query();
 		}
-		$pathkwitansi='/home/pi/trunk/kwitansi/kwitansi_GP_'.$alamat.'_'.$nomor.'_'.$bulanbayar.'_'.$tahunbayar.'.txt';
+		$pathkwitansi='/var/www/html/pam/trunk/kwitansi/kwitansi_GP_'.$alamat.'_'.$nomor.'_'.$bulanbayar.'_'.$tahunbayar.'.txt';
 		file_put_contents($pathkwitansi,$tempprint2);
 		exec("lp ".$pathkwitansi."");
 		//echo "lp ".$pathkwitansi."";
-		//exec("lp /home/pi/trunk/kwitansi/kwitansi2.txt");
+		//exec("lp /var/www/html/pam/trunk/kwitansi/kwitansi2.txt");
 		//echo $tempprint2;
 		//die(); 
 		redirect('admin/pam/cari');

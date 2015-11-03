@@ -269,7 +269,7 @@ if ( ! function_exists('get_config'))
 			}
 		}
 
-		return $_config[0] =& $config;
+		return $config;
 	}
 }
 
