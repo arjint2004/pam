@@ -64,9 +64,9 @@ class Admin extends Admin_Controller {
 			->build('admin/pembukuan');			 
 	}
 	public function print_transaksi($file='')
-	{
+	{ 
 		exec('lp '.base64_decode($file).'');
-		
+		redirect('admin/pam/pembukuan');
 	}
 	public function tambah_transaksi()
 	{

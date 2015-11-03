@@ -8,6 +8,7 @@
 		<fieldset id="filters">
 			<legend>Filters & Search</legend>
 			<?php echo form_open_multipart($this->uri->uri_string(), 'class="crud simpanjaringan" id="simpanjaringan"'); 
+			if(!isset($_POST['bulan'])){@$_POST['bulan']=date('m');}
 			?>
 				<ul>
 					<li class="">
