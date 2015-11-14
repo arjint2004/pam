@@ -1,3 +1,23 @@
+<script>
+								$(document).ready(function(){
+									$("table tr td#actions a").click(function(){
+											var obj=$(this);
+											$.ajax({
+													type: "POST",
+													data: '<?php echo $this->security->get_csrf_token_name();?>=<?php echo $this->security->get_csrf_hash(); ?>&',
+													url: $(obj).attr('href'),
+													beforeSend: function() {
+														$(obj).after("<img id='waittugas9' style='margin:0;'  src='loading.png' />");
+													},
+													success: function(msg) {
+														$("#waittugas9").remove();
+														location.reload();
+													}
+											});
+											return false;
+									});
+								});
+</script>
 <div class="one_full">
 	<section class="title">
 		<h4>Input Data Baca Meter</h4>
@@ -109,7 +129,7 @@
 								
 								<td class="collapse"><?=@$baca_meter_current[$datapelanggan['id']]['baca_meter']-@$baca_meter_sebelumnya[$datapelanggan['id']]['baca_meter']?></td>
 								<td class="collapse"><?=bayar(@$baca_meter_sebelumnya[$datapelanggan['id']]['baca_meter'],@@$baca_meter_current[$datapelanggan['id']]['baca_meter'],$datapelanggan['jenis'])?></td>
-								<td class="collapse"><a href="<?=base_url('admin/pam/printkwitansi/'.$datapelanggan['id'].'/'.$bln.'/'.$thn.'')?>" >Print</a> | <a href="<?=base_url('admin/pam/printkwitansi/'.$datapelanggan['id'].'/'.$bln.'/'.$thn.'/1')?>" >No Mark</a></td>  
+								<td class="collapse" id="actions"><a href="<?=base_url('admin/pam/printkwitansi/'.$datapelanggan['id'].'/'.$bln.'/'.$thn.'')?>" >Print</a> | <a href="<?=base_url('admin/pam/unmark/'.$datapelanggan['id'].'/'.$bln.'/'.$thn.'/2')?>" >UnMark</a> | <a href="<?=base_url('admin/pam/printkwitansi/'.$datapelanggan['id'].'/'.$bln.'/'.$thn.'/1')?>" >Print No Mark</a></td>  
 							</tr>
 						<?php } ?>
 					</tbody>

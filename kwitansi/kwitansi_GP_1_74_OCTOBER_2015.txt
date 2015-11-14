@@ -14,5 +14,5 @@ Rumus			: ((12-10)*2000)+15000 = Rp. 15.000,-
 Jumlah dibayar		: Rp. 15.000,-
 Terbilang 		:  LimaBelas Ribu Rupiah
 Admin			: Asbin Arjinto S.Kom
-Tanggal 		: 24-October-2015
+Tanggal 		: 13-November-2015
 -----------------------------------------------------------------------

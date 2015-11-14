@@ -198,6 +198,63 @@ Tanggal 		: %s
 		//die(); 
 		redirect('admin/pam/cari');
 	}
+
+	public function unmark($id_pelanggan=0,$bulan=0,$tahun=0,$nomark=0)
+	{ 
+		$baca_meter_current=$this->pams_m->baca_meter_current($bulan,$tahun,$id_pelanggan);
+		$datainsert=array(
+				'status'=>0
+				);
+		if($nomark==2){
+			$this->db->where('id',$baca_meter_current[$id_pelanggan]['id']);
+			$this->db->update('default_pembayaran',$datainsert);		
+			//echo $this->db->last_query();
+		}	
+	}
+	public function lihat_data()
+	{   
+		
+		if(isset($_POST['bulan']) && isset($_POST['tahun'])){
+			$pelanggan=$this->pams_m->get_pelanggan($_POST['bulan'],$_POST['tahun']);
+			$baca_meter_current=$this->pams_m->baca_meter_current($_POST['bulan'],$_POST['tahun']);
+			$baca_meter_sebelumnya=$this->pams_m->baca_meter_sebelumnya($_POST['bulan'],$_POST['tahun']);
+			$bulan_sebelum=date("M", mktime(0, 0, 0, $_POST['bulan']-1, 10));
+			$bulan=date("M", mktime(0, 0, 0, $_POST['bulan'], 10));
+			
+			$bulan_sebelum_a=date("Y-m-d", mktime(0, 0, 0, $_POST['bulan']-1  ,1 , $_POST['tahun']));
+			$bulan_a=date("Y-m-d", mktime(0, 0, 0, $_POST['bulan']  ,1 , $_POST['tahun']));	
+			
+			$bln=date("m", mktime(0, 0, 0, $_POST['bulan']  ,1 , $_POST['tahun']));		
+			$thn=date("Y", mktime(0, 0, 0, $_POST['bulan']  ,1 , $_POST['tahun']));		
+		}else{
+			$pelanggan=$this->pams_m->get_pelanggan();
+			$baca_meter_current=$this->pams_m->baca_meter_current();
+			$baca_meter_sebelumnya=$this->pams_m->baca_meter_sebelumnya();
+			$bulan_sebelum=date("M", mktime(0, 0, 0, date('m')-2, 10));
+			$bulan=date("M", mktime(0, 0, 0, date('m')-1, 10));
+			
+			$bulan_sebelum_a=date("Y-m-d", mktime(0, 0, 0, date('m')-2  ,1 , date('Y')));
+			$bulan_a=date("Y-m-d", mktime(0, 0, 0, date('m')-1  ,1 , date('Y')));
+			
+			$bln=date("m", mktime(0, 0, 0, date('m')-1  ,1 , date('Y')));
+			$thn=date("Y", mktime(0, 0, 0, date('m')-1  ,1 , date('Y')));
+		}
+		
+		//pr($baca_meter_sebelumnya);die(); 
+		// set template vars and build
+		$this->template
+			->set('settings', $this->pams_m->get_settings())
+			->set('baca_meter_current', $baca_meter_current)
+			->set('baca_meter_sebelumnya', $baca_meter_sebelumnya)
+			->set('pelanggan', $pelanggan)
+			->set('bulan_sebelum', $bulan_sebelum)
+			->set('bulan', $bulan)
+			->set('bulan_sebelum_a', $bulan_sebelum_a)
+			->set('bulan_a', $bulan_a)
+			->set('bln', $bln)
+			->set('thn', $thn)
+			->build('admin/lihatdata');	
+	}	
 	public function inputdata()
 	{   
 		

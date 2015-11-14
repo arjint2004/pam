@@ -48,6 +48,10 @@ class Module_Pam extends Module {
 					'name' => 'Inputdata',
 					'uri' => 'admin/pam/inputdata',
 				),
+				'lihatdata' => array(
+					'name' => 'Lihat_Data',
+					'uri' => 'admin/pam/lihat_data',
+				),
 				'cari' => array(
 					'name' => 'Cari',
 					'uri' => 'admin/pam/cari',
