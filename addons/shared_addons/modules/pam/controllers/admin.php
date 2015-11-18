@@ -55,12 +55,38 @@ class Admin extends Admin_Controller {
 		
 		$rekening=$this->db->query("SELECT * FROM default_pnama_rekening ")->result_array();
 		if(isset($_POST['bulan']) && isset($_POST['tahun'])){
+		
+			// $neracas=$this->db->query("SELECT n.*,r.nama FROM default_pneraca n JOIN default_pnama_rekening r ON n.kode_rek=r.id WHERE month(n.tanggal)='".date("m", mktime(0, 0, 0, $_POST['bulan']-1  ,date('d') , date('Y')))."' AND year(n.tanggal)='".date("Y", mktime(0, 0, 0, $_POST['bulan']-1  ,date('d') , date('Y')))."' ORDER BY n.tanggal ASC")->result_array();
 			$neraca=$this->db->query("SELECT n.*,r.nama FROM default_pneraca n JOIN default_pnama_rekening r ON n.kode_rek=r.id WHERE month(n.tanggal)='".$_POST['bulan']."' AND year(n.tanggal)='".$_POST['tahun']."' ORDER BY n.tanggal ASC")->result_array();
 		}else{
+			// $neracas=$this->db->query("SELECT n.*,r.nama FROM default_pneraca n JOIN default_pnama_rekening r ON n.kode_rek=r.id WHERE month(n.tanggal)='".date("m", mktime(0, 0, 0, date('m')-1  ,date('d') , date('Y')))."' AND year(n.tanggal)='".date("Y", mktime(0, 0, 0, date('m')-1  ,date('d') , date('Y')))."' ORDER BY n.tanggal ASC")->result_array();
 			$neraca=$this->db->query("SELECT n.*,r.nama FROM default_pneraca n JOIN default_pnama_rekening r ON n.kode_rek=r.id WHERE month(n.tanggal)='".date('m')."' AND year(n.tanggal)='".date('Y')."' ORDER BY n.tanggal ASC")->result_array();
 		}
+		/*foreach($neracas as $dataneraca) { 
+			$totdebit=$totdebit+$dataneraca['debit'];
+			$totkredit=$totkredit+$dataneraca['kredit'];
+			$saldo_bulan_lalu=$totdebit-$totkredit;
+			echo "$totdebit-$totkredit <br />";
+		}*/
+		// pr($neracas);
+		// pr($neraca);
+		// die();
+			/*$sallalu[0]=array(
+				'id' => 0,
+				'tanggal' => $neraca[0]['tanggal'],
+				'kode_rek' => 0,
+				'keterangan' => 'Saldo bulan sebelumnya',
+				'debit' => $saldo_bulan_lalu,
+				'kredit' => 0,
+				'file' => 'nofile',
+				'nama' => 'Saldo'	
+			);*/
+			//$totdata=array_merge($sallalu,$neraca);
+			 $totdata=$neraca;
+			//pr($totdata);die();
 		$this->template
-			->set('neraca', $neraca)
+			->set('neraca', $totdata)
+			->set('saldo_bulan_lalu', $saldo_bulan_lalu)
 			->build('admin/pembukuan');			 
 	}
 	public function print_transaksi($file='')
@@ -196,6 +222,7 @@ Tanggal 		: %s
 		//exec("lp /var/www/html/pam/trunk/kwitansi/kwitansi2.txt");
 		//echo $tempprint2;
 		//die(); 
+		$this->pams_m->update_iuran(date('m')-1,date('Y'));
 		redirect('admin/pam/cari');
 	}
 
@@ -259,7 +286,7 @@ Tanggal 		: %s
 	{   
 		
 		if(isset($_POST['bulan']) && isset($_POST['tahun'])){
-			$pelanggan=$this->pams_m->get_pelanggan($_POST['bulan'],$_POST['tahun']);
+			$pelanggan=$this->pams_m->get_pelanggan();
 			$baca_meter_current=$this->pams_m->baca_meter_current($_POST['bulan'],$_POST['tahun']);
 			$baca_meter_sebelumnya=$this->pams_m->baca_meter_sebelumnya($_POST['bulan'],$_POST['tahun']);
 			$bulan_sebelum=date("M", mktime(0, 0, 0, $_POST['bulan']-1, 10));
@@ -328,6 +355,13 @@ Tanggal 		: %s
 			->set('thn', $thn)
 			->build('admin/inputdata');	
 	}
+	public function cek()
+	{
+		//for($i=1;$i<=12;$i++){
+			//echo $i.'<br />';
+			 $this->pams_m->update_iuran(date('m')-1,date('Y'));
+		//}
+	}
 	public function statistic()
 	{
 		$this->template->build('admin/statistic');	
@@ -375,4 +409,6 @@ Tanggal 		: %s
 			->set('folders', $select_folders)
 			->build('admin/index');
 	}
+	
+	
 }

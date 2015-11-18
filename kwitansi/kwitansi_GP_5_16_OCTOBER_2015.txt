@@ -5,14 +5,14 @@ Nomor			:GP_5_16
 Nama pelanggan		:MUHRODIN
 Alamat        		:Gamplong 5
 
-Pemakaian			Bulan October 0 m3
+Pemakaian			Bulan October 20 m3
 				Bulan September   20 m3
 				____________________ _	
-				Pemakaian        -20 m3
+				Pemakaian        0 m3
 				 
-Rumus			: ((-20-5)*2000)+15000 = Rp. 15.000,-	 
+Rumus			: ((0-5)*2000)+15000 = Rp. 15.000,-	 
 Jumlah dibayar		: Rp. 15.000,-
 Terbilang 		:  LimaBelas Ribu Rupiah
 Admin			: Asbin Arjinto S.Kom
-Tanggal 		: 31-October-2015
+Tanggal 		: 14-November-2015
 -----------------------------------------------------------------------

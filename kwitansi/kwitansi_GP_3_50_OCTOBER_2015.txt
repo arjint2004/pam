@@ -10,9 +10,9 @@ Pemakaian			Bulan October 50 m3
 				____________________ _	
 				Pemakaian        50 m3
 				 
-Rumus			: ((50-5)*2000)+15000 = Rp. 95.000,-	 
+Rumus			: ((50-10)*2000)+15000 = Rp. 95.000,-	 
 Jumlah dibayar		: Rp. 95.000,-
 Terbilang 		:  Sembilan Puluh Lima Ribu Rupiah
 Admin			: Asbin Arjinto S.Kom
-Tanggal 		: 24-October-2015
+Tanggal 		: 14-November-2015
 -----------------------------------------------------------------------
