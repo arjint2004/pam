@@ -60,6 +60,10 @@ class Module_Pam extends Module {
 					'name' => 'Tambah_transaksi',
 					'uri' => 'admin/pam/tambah_transaksi',
 				),
+				'tunggakan' => array(
+					'name' => 'Tunggakan',
+					'uri' => 'admin/pam/tunggakan',
+				),
 			),
 		);
 	}

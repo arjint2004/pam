@@ -45,16 +45,32 @@
 						<?php 
 						$i=1;
 						foreach ($pembayaranMenunggak as $id_pelanggan=>$dataNunggak) { 
-							
+							switch($dataNunggak['alamat']){
+								case 1:
+									$color="black";
+								break;
+								case 2:
+									$color="green";
+								break;
+								case 3:
+									$color="blue";
+								break;
+								case 4:
+									$color="fuchsia";
+								break;
+								case 5:
+									$color="red";
+								break;
+							}
 						?> 
 							<tr>
 								<td><?php //echo form_checkbox('action_to[]', $datapelanggan['id']) ?></td>
-								<td><?=$i++;?></td>
-								<td>Gamp <?=$dataNunggak['alamat']?></td>
-								<td><?=$dataNunggak['nama']?></td>
+								<td style="color:<?=$color?>;"><?=$i++;?></td>
+								<td style="color:<?=$color?>;">Gamp <?=$dataNunggak['alamat']?></td>
+								<td style="color:<?=$color?>;"><?=$dataNunggak['nama']?></td>
 								<? foreach($dataNunggak['bulan'] as $buln=>$bulannya){
 								   if($bulannya['status']==1){
-										$mark="background-color:darkseagreen;";
+										$mark="background-color:darkseagreen;"; 
 										$lunas="[Lunas]";
 								   }elseif($bulannya['status']==0){
 									    $mark="background-color:none;";
@@ -62,9 +78,9 @@
 										$tottunggakan[$id_pelanggan]=$tottunggakan[$id_pelanggan]+$bulannya['harus_bayar'];
 								   }
 								?>
-								<td style="<?=$mark?>"> <?=$bulannya['harus_bayar']?> <?=$lunas?> </td>
+								<td style="<?=$mark?> color:<?=$color?>;"> <?=$bulannya['harus_bayar']?> <?=$lunas?> </td>
 								<? } ?>
-								<td><b style="color:darkred;"><?=$tottunggakan[$id_pelanggan]?></b></td>
+								<td  style="color:<?=$color?>;"><b><?=$tottunggakan[$id_pelanggan]?></b></td>
 							</tr>
 						<? 
 						$tosemua=$tosemua+$tottunggakan[$id_pelanggan];
