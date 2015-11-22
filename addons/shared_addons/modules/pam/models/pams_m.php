@@ -47,6 +47,24 @@ class Pams_m extends MY_Model
 		//echo $this->db->last_query(); 
 		return $query->result_array();
 	}
+	public function get_pembayaranMenunggak($mulai_bulan=9)
+	{
+		$mulai_bulan=$mulai_bulan-1;
+		
+		$bulan=$this->db->query("SELECT b.bulan FROM default_pelanggan l JOIN default_pembayaran b ON l.id=b.id_pelanggan WHERE b.status=0 AND month(b.bulan)>".$mulai_bulan." GROUP BY b.bulan order by b.id_pelanggan")->result_array();
+		$tunggakan=$this->db->query("SELECT l.nama,l.alamat,b.* FROM default_pelanggan l JOIN default_pembayaran b ON l.id=b.id_pelanggan WHERE  month(b.bulan)>".$mulai_bulan." order by b.id_pelanggan")->result_array();
+		foreach($tunggakan as $key=>$datapelanggan){
+			$tunggakan2[$datapelanggan['id_pelanggan']]['nama']=$datapelanggan['nama'];
+			$tunggakan2[$datapelanggan['id_pelanggan']]['id_pelanggan']=$datapelanggan['id_pelanggan'];
+			$tunggakan2[$datapelanggan['id_pelanggan']]['alamat']=$datapelanggan['alamat'];
+			$tunggakan2[$datapelanggan['id_pelanggan']]['bulan'][$datapelanggan['bulan']]=$datapelanggan;
+		}
+		unset($tunggakan);
+
+		return $tunggakan2;
+		//echo $this->db->last_query();
+		
+	}
 	public function baca_meter_current($bulan=0,$tahun=0,$id_pelanggan=0)
 	{
 		if($id_pelanggan!=0){$cnd=' AND b.id_pelanggan='.$id_pelanggan.'';}else{$cnd='';}

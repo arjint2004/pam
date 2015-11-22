@@ -355,6 +355,15 @@ Tanggal 		: %s
 			->set('thn', $thn)
 			->build('admin/inputdata');	
 	}
+	public function tunggakan()
+	{
+		$pembayaranMenunggak=$this->pams_m->get_pembayaranMenunggak(9);
+		// die();
+		$this->template
+			->set('settings', $this->pams_m->get_settings())
+			->set('pembayaranMenunggak', $pembayaranMenunggak)
+			->build('admin/tunggakan');	
+	}
 	public function cek()
 	{
 		//for($i=1;$i<=12;$i++){

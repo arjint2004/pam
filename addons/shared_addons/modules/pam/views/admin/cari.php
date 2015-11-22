@@ -87,20 +87,22 @@
 							$veryf=strtoupper(date("m", mktime(0, 0, 0, date('m')-1  ,1 , date('Y'))));
 							if($veryf==$bulan_currents[1]){
 							$bg='style="background:lightgreen repeat-x scroll 0 0;"';
+							$bg='';
 							$bgx='background:lightgreen repeat-x scroll 0 0;';
 							}else{
 							$bg='';
 							$bgx='';
 							}
+							$bayar=bayar($datapelanggan['baca_s'],$datapelanggan['baca_meter'],$datapelanggan['jenis'],$datapelanggan['id_pemb'],$datapelanggan['harus_bayar']);
 							?>
 						
 							<tr >
 								<td <?=@$bg?> style="color:<?=$color?>;"><?php echo $i++;?></td>
 								<td <?=@$bg?> style="color:<?=$color?>;">GP <?php echo $datapelanggan['alamat'];?> (<?php echo $datapelanggan['nomor'];?>)</td>
-								<td class="collapse" style="color:<?=$color?>;<? if($datapelanggan['status']==1){ echo 'background-color:darkseagreen;';}else{echo $bgx;}?>"><? echo $datapelanggan['nama'];?></td>
+								<td class="collapse" style="color:<?=$color?>;<? if($datapelanggan['status']==1){ echo 'background-color:darkseagreen;';}else{}?>"><? echo $datapelanggan['nama'];?></td>
 								<td <?=@$bg?> class="collapse"><?=strtoupper(date("F", mktime(0, 0, 0, $bulan_currents[1]  ,$bulan_currents[2] , $bulan_currents[0])))?></td>
 								<td <?=@$bg?> class="collapse"><?=$datapelanggan['baca_meter']-$datapelanggan['baca_s']?></td>
-								<td <?=@$bg?> class="collapse"><?=bayar($datapelanggan['baca_s'],$datapelanggan['baca_meter'],$datapelanggan['jenis'])?></td>
+								<td <?=@$bg?> class="collapse"><?=$bayar?></td>
 								<td <?=@$bg?> class="collapse"><a href="<?=base_url('admin/pam/printkwitansi/'.$datapelanggan['id'].'/'.$bulan_currents[1].'/'.$bulan_currents[0].'')?>" >Print</a> --|-- <a href="<?=base_url('admin/pam/printkwitansi/'.$datapelanggan['id'].'/'.$bulan_currents[1].'/'.$bulan_currents[0].'/1')?>" >No Mark</a></td>  
 							</tr>
 						<?php } ?>

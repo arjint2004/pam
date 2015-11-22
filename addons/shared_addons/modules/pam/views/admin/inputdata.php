@@ -83,6 +83,7 @@
 						<span>Simpan</span>
 					</button>
 				</div><br />	
+				 <? //pr($baca_meter_current);?>
 				<table cellspacing="0">
 					<thead>
 						<tr>
@@ -116,6 +117,7 @@
 									$color="red";
 								break;
 							}
+							$bayar=bayar(@$baca_meter_sebelumnya[$datapelanggan['id']]['baca_meter'],@@$baca_meter_current[$datapelanggan['id']]['baca_meter'],$datapelanggan['jenis'],$baca_meter_current[$datapelanggan['id']]['id'],$baca_meter_current[$datapelanggan['id']]['harus_bayar']);
 						?>
 							<tr>
 								<td><?php //echo form_checkbox('action_to[]', $datapelanggan['id']) ?></td>
@@ -128,7 +130,7 @@
 								<td class="collapse"><input type="text" name="pemakaian[<?=$bulan_sebelum_a?>][<?=$datapelanggan['id']?>]" size="5" value="<?=@$baca_meter_sebelumnya[$datapelanggan['id']]['baca_meter']?>" readonly /></td>
 								
 								<td class="collapse"><?=@$baca_meter_current[$datapelanggan['id']]['baca_meter']-@$baca_meter_sebelumnya[$datapelanggan['id']]['baca_meter']?></td>
-								<td class="collapse"><?=bayar(@$baca_meter_sebelumnya[$datapelanggan['id']]['baca_meter'],@@$baca_meter_current[$datapelanggan['id']]['baca_meter'],$datapelanggan['jenis'])?></td>
+								<td class="collapse"><?=$bayar?></td>
 								<td class="collapse" id="actions"><a href="<?=base_url('admin/pam/printkwitansi/'.$datapelanggan['id'].'/'.$bln.'/'.$thn.'')?>" >Print</a> | <a href="<?=base_url('admin/pam/unmark/'.$datapelanggan['id'].'/'.$bln.'/'.$thn.'/2')?>" >UnMark</a> | <a href="<?=base_url('admin/pam/printkwitansi/'.$datapelanggan['id'].'/'.$bln.'/'.$thn.'/1')?>" >Print No Mark</a></td>  
 							</tr>
 						<?php } ?>

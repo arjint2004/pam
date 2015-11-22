@@ -1,6 +1,6 @@
 <?php
 if (!function_exists('bayar')) {
-    function bayar($bln_sebelum=0,$bulan_current=0,$jenis='normal') {
+    function bayar($bln_sebelum=0,$bulan_current=0,$jenis='normal',$id_pembayaran=0,$harus_bayar=-1) {
 		$pemakaian=$bulan_current-$bln_sebelum;
 		
 		switch($jenis){
@@ -24,7 +24,10 @@ if (!function_exists('bayar')) {
 			 $bayar=0;
 			break;
 		}
-		
+		if($id_pembayaran!=0 && $harus_bayar!=-1){
+			
+			ci()->db->query('UPDATE default_pembayaran SET harus_bayar='.$bayar.' WHERE id='.$id_pembayaran.'');
+		}
 		return $bayar;
     }
 }
