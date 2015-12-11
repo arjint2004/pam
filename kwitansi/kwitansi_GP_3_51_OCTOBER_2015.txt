@@ -10,9 +10,9 @@ Pemakaian			Bulan October 15 m3
 				____________________ _	
 				Pemakaian        15 m3
 				 
-Rumus			: ((15-5)*2000)+15000 = Rp. 15.000,-	 
+Rumus			: ((15-10)*2000)+15000 = Rp. 15.000,-	 
 Jumlah dibayar		: Rp. 15.000,-
 Terbilang 		:  LimaBelas Ribu Rupiah
 Admin			: Asbin Arjinto S.Kom
-Tanggal 		: 24-October-2015
+Tanggal 		: 27-November-2015
 -----------------------------------------------------------------------

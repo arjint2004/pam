@@ -14,5 +14,5 @@ Rumus			: ((23-5)*2000)+15000 = Rp. 51.000,-
 Jumlah dibayar		: Rp. 51.000,-
 Terbilang 		:  Lima Puluh Satu Ribu Rupiah
 Admin			: Asbin Arjinto S.Kom
-Tanggal 		: 31-October-2015
+Tanggal 		: 30-November-2015
 -----------------------------------------------------------------------
