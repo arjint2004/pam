@@ -41,6 +41,30 @@ class Admin extends Admin_Controller {
 			->set('pelanggan', $pelanggan)
 			->build('admin/cari');		
 	}
+	public function laportunggakan($id_pelanggan=0,$id_pembayaran=0)
+	{
+		$datainsert=array(
+				'status'=>1,
+				'penagihan'=>1,
+				'bulan_penagihan'=>date('Y-m-d')
+				);
+			$this->db->where('id',$id_pembayaran);
+			$this->db->update('default_pembayaran',$datainsert);
+			redirect('admin/pam/tunggakan');
+	}
+	public function laportunggakanview()
+	{
+		$alamatx="";
+		// pr($_POST);
+		if(!isset($_POST['alamat'])){$alamatx .="";}else{$alamatx .=" p.alamat=".$_POST['alamat']." AND ";}
+		if(!isset($_POST['bulan'])){$alamatx .="";}else{$alamatx .=" month(r.bulan_penagihan)=".$_POST['bulan']." AND ";}
+		if(!isset($_POST['tahun'])){$alamatx .="";}else{$alamatx .=" year(r.bulan_penagihan)=".$_POST['tahun']." AND ";} 
+		$datapenagihan=$this->db->query("SELECT r.*,p.nama,p.alamat FROM default_pelanggan p JOIN default_pembayaran r ON p.id=r.id_pelanggan WHERE ".$alamatx." penagihan=1 ")->result_array();
+		// echo $this->db->last_query();
+		$this->template
+			->set('datapenagihan', $datapenagihan)
+			->build('admin/laportunggakanview');	
+	}
 	public function pelanggan()
 	{
 		$this->template->build('admin/pelanggan');	
@@ -48,7 +72,7 @@ class Admin extends Admin_Controller {
 	public function rekaptunggakan()
 	{
 		
-		$this->template->build('admin/rekaptunggakan');	
+		$this->template->build('admin/rekaptunggakan');
 	}
 	public function pembukuan()
 	{	
@@ -230,7 +254,9 @@ Tanggal 		: %s
 	{ 
 		$baca_meter_current=$this->pams_m->baca_meter_current($bulan,$tahun,$id_pelanggan);
 		$datainsert=array(
-				'status'=>0
+				'status'=>0,
+				'penagihan'=>0,
+				'bulan_penagihan'=>'0000-00-00'
 				);
 		if($nomark==2){
 			$this->db->where('id',$baca_meter_current[$id_pelanggan]['id']);

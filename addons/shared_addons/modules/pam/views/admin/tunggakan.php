@@ -78,7 +78,15 @@
 										$tottunggakan[$id_pelanggan]=$tottunggakan[$id_pelanggan]+$bulannya['harus_bayar'];
 								   }
 								?>
-								<td style="<?=$mark?> color:<?=$color?>;"> <?=$bulannya['harus_bayar']?> <?=$lunas?> </td>
+								<td style="<?=$mark?> color:<?=$color?>;"><?
+								if($lunas!=""){
+									echo $bulannya['harus_bayar'];
+									echo $lunas;
+								}else{
+									echo "<a href='".base_url('admin/pam/laportunggakan/'.$bulannya['id_pelanggan'].'/'.$bulannya['id'].'')."' >".$bulannya['harus_bayar']."</a>";
+								}
+
+								?></td>
 								<? } ?>
 								<td  style="color:<?=$color?>;"><b><?=$tottunggakan[$id_pelanggan]?></b></td>
 							</tr>
