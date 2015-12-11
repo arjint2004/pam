@@ -41,7 +41,7 @@ class Admin extends Admin_Controller {
 			->set('pelanggan', $pelanggan)
 			->build('admin/cari');		
 	}
-	public function laportunggakan($id_pelanggan=0,$id_pembayaran=0)
+	public function laporan_penagihan($id_pelanggan=0,$id_pembayaran=0)
 	{
 		$datainsert=array(
 				'status'=>1,

@@ -83,7 +83,7 @@
 									echo $bulannya['harus_bayar'];
 									echo $lunas;
 								}else{
-									echo "<a href='".base_url('admin/pam/laportunggakan/'.$bulannya['id_pelanggan'].'/'.$bulannya['id'].'')."' >".$bulannya['harus_bayar']."</a>";
+									echo "<a href='".base_url('admin/pam/laporan_penagihan/'.$bulannya['id_pelanggan'].'/'.$bulannya['id'].'')."' >".$bulannya['harus_bayar']."</a>";
 								}
 
 								?></td>

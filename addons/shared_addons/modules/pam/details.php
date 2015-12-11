@@ -64,6 +64,10 @@ class Module_Pam extends Module {
 					'name' => 'Tunggakan',
 					'uri' => 'admin/pam/tunggakan',
 				),
+				'laporan_tunggakan' => array(
+					'name' => 'Laporan_Tunggakan',
+					'uri' => 'admin/pam/laporan_tunggakan',
+				),
 			),
 		);
 	}
