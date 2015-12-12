@@ -41,7 +41,7 @@ class Admin extends Admin_Controller {
 			->set('pelanggan', $pelanggan)
 			->build('admin/cari');		
 	}
-	public function laporan_penagihan($id_pelanggan=0,$id_pembayaran=0)
+	public function laporan_penagihanproses($id_pelanggan=0,$id_pembayaran=0)
 	{
 		$datainsert=array(
 				'status'=>1,
@@ -49,10 +49,14 @@ class Admin extends Admin_Controller {
 				'bulan_penagihan'=>date('Y-m-d')
 				);
 			$this->db->where('id',$id_pembayaran);
-			$this->db->update('default_pembayaran',$datainsert);
-			redirect('admin/pam/tunggakan');
+			if($this->db->update('default_pembayaran',$datainsert)){
+				echo 1;
+			}else{
+				echo 0;
+			}
+			
 	}
-	public function laportunggakanview()
+	public function laporan_penagihan($print=0)
 	{
 		$alamatx="";
 		// pr($_POST);
@@ -61,9 +65,13 @@ class Admin extends Admin_Controller {
 		if(!isset($_POST['tahun'])){$alamatx .="";}else{$alamatx .=" year(r.bulan_penagihan)=".$_POST['tahun']." AND ";} 
 		$datapenagihan=$this->db->query("SELECT r.*,p.nama,p.alamat FROM default_pelanggan p JOIN default_pembayaran r ON p.id=r.id_pelanggan WHERE ".$alamatx." penagihan=1 ")->result_array();
 		// echo $this->db->last_query();
+		if($print==0){
 		$this->template
 			->set('datapenagihan', $datapenagihan)
 			->build('admin/laportunggakanview');	
+		}else{
+		
+		}
 	}
 	public function pelanggan()
 	{
@@ -113,12 +121,47 @@ class Admin extends Admin_Controller {
 			->set('saldo_bulan_lalu', $saldo_bulan_lalu)
 			->build('admin/pembukuan');			 
 	}
-	public function print_transaksi($file='')
+	public function print_transaksi($id=0)
 	{ 
-		exec('lp /var/www/html/pam/trunk/kwitansi/'.base64_decode($file).'');
-		echo 'lp /var/www/html/pam/trunk/kwitansi/'.base64_decode($file).'';
-		//redirect('admin/pam/pembukuan');
+		$rekeningv=$this->db->query("SELECT * FROM default_pnama_rekening ")->result_array();
+		foreach($rekeningv as $dtrk){
+			$rekening2[$dtrk['id']]=$dtrk;
+		}
+		$rekeningv=$rekening2;unset($rekening2);
+		
+		$rekening=$this->db->query("SELECT * FROM default_pneraca WHERE id=".$id."")->result_array();
+		pr($rekening);
+		if($rekening[0]['debit']>0){
+			$posisid=$rekening[0]['debit'];
+			$jn='PEMASUKAN';
+			$diterima_dari=$rekening[0]['diterima_dari'];
+		}else{$posisid=0;}
+		if($rekening[0]['kredit']>0){
+			$posisik=$rekening[0]['kredit'];
+			$jn='PENGELUARAN';
+			$diterima_dari=$rekening[0]['diterima_dari'];
+		}else{$posisik=0;}
+					$jumlah=$posisik+$posisid;
+					$tgltr=explode('-',$rekening[0]['tanggal']);
+					$tanggal=date("d-F-Y", mktime(0, 0, 0, $tgltr[1]  ,$tgltr[2] , $tgltr[0]));
+					
+		$tempprint='-----------------------------------------------------------------------
+BUKTI '.$jn.' SPAMDES TIRTO ROSO
+-----------------------------------------------------------------------
+Nomor			:'.$rekening[0]['kode_rek'].'_'.$rekeningv[$rekening[0]['kode_rek']]['nama'].'
+Diterima Dari		:'.$diterima_dari.'
+Jumlah        		:'.$jumlah.'
+Terbilang 		: '.Terbilang($jumlah).' Rupiah
+Untuk Pembayaran 	: '.$rekening[0]['keterangan'].' 
+Tanggal 		: '.$tanggal.'
+-----------------------------------------------------------------------';		
+						$pathkwitansi='/var/www/html/pam/trunk/kwitansi/'.$tanggal.'_kwitansi_'.str_replace(' ','_',$rekeningv[$rekening[0]['kode_rek']]['nama']).'.txt';
+						file_put_contents($pathkwitansi,$tempprint);
+		exec('lp '.$pathkwitansi.'');
+		echo 'lp '.$pathkwitansi.'';
+		redirect('admin/pam/pembukuan');
 	}
+	
 	public function tambah_transaksi()
 	{
 		$rekening=$this->db->query("SELECT * FROM default_pnama_rekening ")->result_array();
@@ -153,7 +196,7 @@ BUKTI '.$jn.' SPAMDES TIRTO ROSO
 Nomor			:'.$_POST['kode_rek'][$idx].'_'.$rekening[$_POST['kode_rek'][$idx]]['nama'].'
 Diterima Dari		:'.$diterima_dari.'
 Jumlah        		:'.$jumlah.'
-Terbilang 		: '.Terbilang($_POST['nominal'][$idx]).' Rupiah
+Terbilang 		: '.Terbilang($jumlah).' Rupiah
 Untuk Pembayaran 	: '.$_POST['keterangan'][$idx].' 
 Tanggal 		: '.$tanggal.'
 -----------------------------------------------------------------------';		
@@ -169,6 +212,7 @@ Tanggal 		: '.$tanggal.'
 										'debit'=>$posisid,
 										'kredit'=>$posisik,
 										'file'=>str_replace('/var/www/html/pam/trunk/kwitansi/','',$pathkwitansi),
+										'diterima_dari'=>$_POST['penyetor'][$idx]
 					);
 					$this->db->insert('default_pneraca',$datainsert);
 				}
@@ -246,8 +290,8 @@ Tanggal 		: %s
 		//exec("lp /var/www/html/pam/trunk/kwitansi/kwitansi2.txt");
 		//echo $tempprint2;
 		//die(); 
-		$this->pams_m->update_iuran(date('m')-1,date('Y'));
-		redirect('admin/pam/cari');
+		$this->pams_m->update_iuran($bulan,date('Y'));
+		//redirect('admin/pam/cari');
 	}
 
 	public function unmark($id_pelanggan=0,$bulan=0,$tahun=0,$nomark=0)

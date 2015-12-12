@@ -111,7 +111,7 @@
 
 			<div class="buttons" >
 				<button class="btn blue" id="btn_edir_member" value="save" name="simpan" type="submit">
-					<span>Simpan</span>
+					<span onclick="<?=base_url('admin/pam/laporan_penagihan_print')?>">Print</span>
 				</button>
 			</div>	
 		</div>

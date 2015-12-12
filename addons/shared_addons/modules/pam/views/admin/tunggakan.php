@@ -16,6 +16,29 @@
 											});
 											return false;
 									});
+									$("table tr td a#penagihan").click(function(){
+											var obj=$(this);
+											$.ajax({
+													type: "POST",
+													data: '<?php echo $this->security->get_csrf_token_name();?>=<?php echo $this->security->get_csrf_hash(); ?>&',
+													url: $(obj).attr('href'),
+													beforeSend: function() {
+														$(obj).after("<img id='waittugas22' style='margin:0;'  src='<?=base_url().'loading.png';?>' />");
+													},
+													success: function(msg) {
+														$("#waittugas22").remove();
+														if(msg==1){
+															$(obj).parent('td').css('background-color','green');
+															$(obj).css('color','white');
+														}else{
+															$(obj).parent('td').css('background-color','red');
+															$(obj).css('color','white');
+														}
+														
+													}
+											});
+											return false;
+									});
 								});
 </script>
 <div class="one_full">
@@ -66,7 +89,7 @@
 							<tr>
 								<td><?php //echo form_checkbox('action_to[]', $datapelanggan['id']) ?></td>
 								<td style="color:<?=$color?>;"><?=$i++;?></td>
-								<td style="color:<?=$color?>;">Gamp <?=$dataNunggak['alamat']?></td>
+								<td style="color:<?=$color?>;">Gamp <?=$dataNunggak['alamat']?>(<?php //echo $bulannya['nomor']+1;?>)</td>
 								<td style="color:<?=$color?>;"><?=$dataNunggak['nama']?></td>
 								<? foreach($dataNunggak['bulan'] as $buln=>$bulannya){
 								   if($bulannya['status']==1){
@@ -83,7 +106,7 @@
 									echo $bulannya['harus_bayar'];
 									echo $lunas;
 								}else{
-									echo "<a href='".base_url('admin/pam/laporan_penagihan/'.$bulannya['id_pelanggan'].'/'.$bulannya['id'].'')."' >".$bulannya['harus_bayar']."</a>";
+									echo "<a id='penagihan' href='".base_url('admin/pam/laporan_penagihanproses/'.$bulannya['id_pelanggan'].'/'.$bulannya['id'].'')."' >".$bulannya['harus_bayar']."</a>";
 								}
 
 								?></td>

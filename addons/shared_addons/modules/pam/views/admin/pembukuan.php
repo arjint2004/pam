@@ -89,12 +89,22 @@
 								<td><?=$dataneraca['keterangan']?></td>
 								<td>
 								<? if($dataneraca['file']!=''){?>
-								<a href="<?=base_url('admin/pam/print_transaksi').'/'.base64_encode($dataneraca['file'])?>">Print</a>
+								<a href="<?=base_url('admin/pam/print_transaksi').'/'.$dataneraca['id']?>">Print</a>
 								<? } ?>
 								</td>
 								
 							</tr>
-						<?php } ?>
+						<?php 
+						$totd=$totd+$dataneraca['debit'];
+						$totk=$totk+$dataneraca['kredit'];
+						} ?>
+						<tr>
+							<td colspan="3">Total</td>
+							<td><b><?=$totd?></b></td>
+							<td><b><?=$totk?></b></td>
+							<td><b><?=$totd-$totk?></b></td>
+							<td colspan="2"></td>
+						</tr>
 					</tbody>
 				</table>
 

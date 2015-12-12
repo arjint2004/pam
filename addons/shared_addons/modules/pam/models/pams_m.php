@@ -52,7 +52,8 @@ class Pams_m extends MY_Model
 		$mulai_bulan=$mulai_bulan-1;
 		
 		$bulan=$this->db->query("SELECT b.bulan FROM default_pelanggan l JOIN default_pembayaran b ON l.id=b.id_pelanggan WHERE b.status=0 AND month(b.bulan)>".$mulai_bulan." GROUP BY b.bulan order by b.id_pelanggan")->result_array();
-		$tunggakan=$this->db->query("SELECT l.nama,l.alamat,b.* FROM default_pelanggan l JOIN default_pembayaran b ON l.id=b.id_pelanggan WHERE  month(b.bulan)>".$mulai_bulan." order by b.id_pelanggan")->result_array();
+		$tunggakan=$this->db->query("SELECT l.nama,l.alamat,l.nomor,b.* FROM default_pelanggan l JOIN default_pembayaran b ON l.id=b.id_pelanggan WHERE  month(b.bulan)>".$mulai_bulan." order by b.id_pelanggan")->result_array();
+		
 		foreach($tunggakan as $key=>$datapelanggan){
 			$tunggakan2[$datapelanggan['id_pelanggan']]['nama']=$datapelanggan['nama'];
 			$tunggakan2[$datapelanggan['id_pelanggan']]['id_pelanggan']=$datapelanggan['id_pelanggan'];
