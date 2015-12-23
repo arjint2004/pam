@@ -64,6 +64,10 @@ class Module_Pam extends Module {
 					'name' => 'Tunggakan',
 					'uri' => 'admin/pam/tunggakan',
 				),
+				'print_tunggakan' => array(
+					'name' => 'Print_Tunggakan',
+					'uri' => 'admin/pam/print_tunggakan',
+				),
 				'laporan_penagihan' => array(
 					'name' => 'Laporan_Penagihan',
 					'uri' => 'admin/pam/laporan_penagihan',

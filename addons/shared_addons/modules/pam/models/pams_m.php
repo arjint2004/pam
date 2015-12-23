@@ -43,7 +43,7 @@ class Pams_m extends MY_Model
 	}
 	public function get_pelanggan()
 	{
-		$query=$this->db->query("SELECT * FROM default_pelanggan");
+		$query=$this->db->query("SELECT * FROM default_pelanggan ORDER BY alamat,id");
 		//echo $this->db->last_query(); 
 		return $query->result_array();
 	}

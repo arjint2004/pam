@@ -2,14 +2,14 @@
 if (!function_exists('bayar')) {
     function bayar($bln_sebelum=0,$bulan_current=0,$jenis='normal',$id_pembayaran=0,$harus_bayar=-1) {
 		$pemakaian=$bulan_current-$bln_sebelum;
-		
+
 		switch($jenis){
 			case 'normal':
 				if($bln_sebelum==0 && $bulan_current!=0){
 					if(($pemakaian-10)<=5){
 						$bayar=15000;
 					}else{
-					$bayar=((($pemakaian)-10)*2000)+15000;//echo '((('.$pemakaian.')-10)*2000)+15000===';
+						$bayar=((($pemakaian)-10)*2000)+15000;//echo '((('.$pemakaian.')-10)*2000)+15000===';
 					}
 				}elseif($pemakaian<=5){
 					$bayar=15000;

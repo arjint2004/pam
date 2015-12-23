@@ -291,6 +291,7 @@ Tanggal 		: %s
 		//echo $tempprint2;
 		//die(); 
 		$this->pams_m->update_iuran($bulan,date('Y'));
+		echo 1;
 		//redirect('admin/pam/cari');
 	}
 
@@ -433,6 +434,15 @@ Tanggal 		: %s
 			->set('settings', $this->pams_m->get_settings())
 			->set('pembayaranMenunggak', $pembayaranMenunggak)
 			->build('admin/tunggakan');	
+	}
+	public function print_tunggakan()
+	{
+		$pembayaranMenunggak=$this->pams_m->get_pembayaranMenunggak(9);
+		// die();
+		$this->template
+			->set('settings', $this->pams_m->get_settings())
+			->set('pembayaranMenunggak', $pembayaranMenunggak)
+			->build('admin/printtunggakan');	
 	}
 	public function cek()
 	{
