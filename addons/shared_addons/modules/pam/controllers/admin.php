@@ -291,8 +291,12 @@ Tanggal 		: %s
 		//echo $tempprint2;
 		//die(); 
 		$this->pams_m->update_iuran($bulan,date('Y'));
-		echo 1;
-		//redirect('admin/pam/cari');
+		if($nomark==1){
+			echo 1;
+		}else{
+			redirect('admin/pam/cari');
+		}
+		
 	}
 
 	public function unmark($id_pelanggan=0,$bulan=0,$tahun=0,$nomark=0)
