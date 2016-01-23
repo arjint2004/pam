@@ -96,11 +96,13 @@ class Admin extends Admin_Controller {
 			$tot[$i]['bulan']=$i;
 			$tot[$i]['debit']=$totd[$i];
 			$tot[$i]['kredit']=$totk[$i];
-			$tot[$i]['saldo']=$totd[$i]-$totk[$i];
-			
+			$fv=$i-1;
+			$tot[$i]['saldo']=($tot[$fv]['saldo']+$totd[$i])-$totk[$i];
+			// echo "(".$tot[$fv]['saldo']."+".$totd[$i].")-".$totk[$i]."=".$tot[$i]['saldo']."<br />";
 			
 		}
-
+		// pr($tot);
+		// die();
 		$this->template
 			->set('neraca', $tot)
 			->set('tahun', $tahun)
@@ -481,6 +483,10 @@ Tanggal 		: %s
 	{
 		//for($i=1;$i<=12;$i++){
 			//echo $i.'<br />';
+
+			 $this->pams_m->update_iuran(9,2015);
+			 $this->pams_m->update_iuran(10,2015);
+			 $this->pams_m->update_iuran(11,2015);
 			 $this->pams_m->update_iuran(12,2015);
 		//}
 	}
