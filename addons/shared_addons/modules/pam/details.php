@@ -44,6 +44,14 @@ class Module_Pam extends Module {
 					'name' => 'Pembukuan',
 					'uri' => 'admin/pam/pembukuan',
 				),
+				'tambah_transaksi' => array(
+					'name' => 'Tambah_transaksi',
+					'uri' => 'admin/pam/tambah_transaksi',
+				),
+				'rekap_tahunan' => array(
+					'name' => 'Rekap_tahunan',
+					'uri' => 'admin/pam/rekap_tahunan',
+				),
 				'inputdata' => array(
 					'name' => 'Inputdata',
 					'uri' => 'admin/pam/inputdata',
@@ -55,10 +63,6 @@ class Module_Pam extends Module {
 				'cari' => array(
 					'name' => 'Cari',
 					'uri' => 'admin/pam/cari',
-				),
-				'tambah_transaksi' => array(
-					'name' => 'Tambah_transaksi',
-					'uri' => 'admin/pam/tambah_transaksi',
 				),
 				'tunggakan' => array(
 					'name' => 'Tunggakan',

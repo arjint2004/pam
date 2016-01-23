@@ -63,8 +63,8 @@ class Admin extends Admin_Controller {
 		if(!isset($_POST['alamat'])){$alamatx .="";}else{$alamatx .=" p.alamat=".$_POST['alamat']." AND ";}
 		if(!isset($_POST['bulan'])){$alamatx .="";}else{$alamatx .=" month(r.bulan_penagihan)=".$_POST['bulan']." AND ";}
 		if(!isset($_POST['tahun'])){$alamatx .="";}else{$alamatx .=" year(r.bulan_penagihan)=".$_POST['tahun']." AND ";} 
-		$datapenagihan=$this->db->query("SELECT r.*,p.nama,p.alamat FROM default_pelanggan p JOIN default_pembayaran r ON p.id=r.id_pelanggan WHERE ".$alamatx." penagihan=1 ")->result_array();
-		// echo $this->db->last_query();
+		$datapenagihan=$this->db->query("SELECT r.*,p.nama,p.alamat FROM default_pelanggan p JOIN default_pembayaran r ON p.id=r.id_pelanggan WHERE ".$alamatx." penagihan=1 ORDER BY p.id ")->result_array();
+		// echo $this->db->last_query();die();
 		if($print==0){
 		$this->template
 			->set('datapenagihan', $datapenagihan)
@@ -81,6 +81,35 @@ class Admin extends Admin_Controller {
 	{
 		
 		$this->template->build('admin/rekaptunggakan');
+	}
+	public function rekap_tahunan($tahun=2015)
+	{
+		if(isset($_POST['tahun'])){$tahun=$_POST['tahun'];}
+		for($i=1;$i<=12;$i++){
+			// echo $i.'<br />';
+			$neraca=$this->db->query("SELECT n.*,r.nama FROM default_pneraca n JOIN default_pnama_rekening r ON n.kode_rek=r.id WHERE month(n.tanggal)='".$i."' AND year(n.tanggal)='".$tahun."' ORDER BY n.tanggal ASC")->result_array();
+			foreach ($neraca as $dataneraca) {
+				$totd[$i]=$totd[$i]+$dataneraca['debit'];
+				$totk[$i]=$totk[$i]+$dataneraca['kredit'];
+			}
+
+			$tot[$i]['bulan']=$i;
+			$tot[$i]['debit']=$totd[$i];
+			$tot[$i]['kredit']=$totk[$i];
+			$tot[$i]['saldo']=$totd[$i]-$totk[$i];
+			
+			
+		}
+
+		$this->template
+			->set('neraca', $tot)
+			->set('tahun', $tahun)
+			->set('saldo_bulan_lalu', $saldo_bulan_lalu)
+			->build('admin/rekap_tahunan');			
+	}
+	public function get_rekap_tahunan()
+	{	
+
 	}
 	public function pembukuan()
 	{	
@@ -290,7 +319,7 @@ Tanggal 		: %s
 		//exec("lp /var/www/html/pam/trunk/kwitansi/kwitansi2.txt");
 		//echo $tempprint2;
 		//die(); 
-		$this->pams_m->update_iuran($bulan,date('Y'));
+		// $this->pams_m->update_iuran($bulan,date('Y'));
 		if($nomark==1){
 			echo 1;
 		}else{
@@ -452,7 +481,7 @@ Tanggal 		: %s
 	{
 		//for($i=1;$i<=12;$i++){
 			//echo $i.'<br />';
-			 $this->pams_m->update_iuran(date('m')-1,date('Y'));
+			 $this->pams_m->update_iuran(12,2015);
 		//}
 	}
 	public function statistic()

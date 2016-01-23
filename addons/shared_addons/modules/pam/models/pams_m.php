@@ -129,10 +129,11 @@ class Pams_m extends MY_Model
 	
 	public function update_iuran($bulan=0,$tahun=0)
 	{
+		$bulanx=date("m", mktime(0, 0, 0, $bulan-1  ,1 , $tahun));
 		//ambil data pelanggan
 		$pelanggan=$this->get_pelanggan();
-		$baca_meter_current=$this->baca_meter_current($bulan,$tahun);
-		$baca_meter_sebelumnya=$this->baca_meter_sebelumnya($bulan,$tahun);
+		$baca_meter_current=$this->baca_meter_current($bulanx,$tahun);
+		$baca_meter_sebelumnya=$this->baca_meter_sebelumnya($bulanx,$tahun);
 		
 		foreach ($pelanggan as $datapelanggan) { 
 			
@@ -140,16 +141,20 @@ class Pams_m extends MY_Model
 			if($baca_meter_current[$datapelanggan['id']]['status']==1){ 
 				$bayar=bayar(@$baca_meter_sebelumnya[$datapelanggan['id']]['baca_meter'],@$baca_meter_current[$datapelanggan['id']]['baca_meter'],$datapelanggan['jenis']);
 				$totalb=$totalb+$bayar;
+				// echo $bayar.'<br />';
 			}
 		}
-		// echo $totalb.'<br />';
+		 
 		//cek data apakah sudah ada
 		
-		$tgl=date("Y-m-d", mktime(0, 0, 0, $bulan+1  ,1 , date('Y')));
+		$tgl=date("Y-m-d", mktime(0, 0, 0, $bulan  ,1 , $tahun));
 		$cekPemb=$this->db->query('SELECT * FROM default_pneraca WHERE kode_rek=11 AND tanggal="'.$tgl.'"')->result_array();
-		
-		// echo $this->db->last_query();
-		$bulanup=date("F Y", mktime(0, 0, 0, $bulan  ,1 , date('Y')));
+		pr($bulan);
+		pr($tahun);
+		pr($totalb);
+		pr($cekPemb);
+		 echo $this->db->last_query();
+		$bulanup=date("F Y", mktime(0, 0, 0, $bulan-1  ,1 , $tahun));
 		if(empty($cekPemb)){
 			//insert
 			$datainsert=array(
@@ -175,7 +180,7 @@ class Pams_m extends MY_Model
 			$this->db->update('default_pneraca',$datainsert);
 			
 		}
-		// echo $this->db->last_query();
+		 echo $this->db->last_query();
 		//inputkan ke table neraca di posisi bulan berikutnya
 		
 		
