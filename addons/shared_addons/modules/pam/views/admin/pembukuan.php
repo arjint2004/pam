@@ -66,7 +66,7 @@
 							<th>Rekening</th>
 							<th>Debit</th>
 							<th>Kredit</th>
-							<!--<th>Saldo</th>-->
+							<th>Saldo</th>
 							<th>Keterangan</th>
 							<th>Print</th>
 							
@@ -85,12 +85,12 @@
 								<td><?=$dataneraca['nama']?> (<?=$dataneraca['kode_rek']?>)</td>
 								<td><?=$dataneraca['debit']?></td>
 								<td><?=$dataneraca['kredit']?></td>
-								<!--<td><?=$saldo?></td>-->
+								<td><?=$saldo?></td>
 								<td><?=$dataneraca['keterangan']?></td>
 								<td>
-								<? //if($dataneraca['file']!=''){?>
+								<? if($dataneraca['file']!=''){?>
 								<a href="<?=base_url('admin/pam/print_transaksi').'/'.$dataneraca['id']?>">Print</a>
-								<? //} ?>
+								<? } ?>
 								</td>
 								
 							</tr>
@@ -98,13 +98,13 @@
 						$totd=$totd+$dataneraca['debit'];
 						$totk=$totk+$dataneraca['kredit'];
 						} ?>
-						<!--<tr>
-							<td colspan="2">Total</td>
+						<tr>
+							<td colspan="3">Total</td>
 							<td><b><?=$totd?></b></td>
 							<td><b><?=$totk?></b></td>
 							<td><b><?=$totd-$totk?></b></td>
 							<td colspan="2"></td>
-						</tr>-->
+						</tr>
 					</tbody>
 				</table>
 
