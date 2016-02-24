@@ -264,7 +264,7 @@ Tanggal 		: '.$tanggal.'
 		$pelanggan=$this->pams_m->get_pelanggan_by_id($id_pelanggan);
 		$baca_meter_current=$this->pams_m->baca_meter_current($bulan,$tahun,$id_pelanggan);
 		$baca_meter_sebelumnya=$this->pams_m->baca_meter_sebelumnya($bulan,$tahun,$id_pelanggan);
-
+		// print_r($baca_meter_sebelumnya);die;
 		$bulan_currents=explode('-',$baca_meter_current[$id_pelanggan]['bulan']);
 		$bulan_sebelumnya=explode('-',$baca_meter_sebelumnya[$id_pelanggan]['bulan']);
 
@@ -305,7 +305,7 @@ Tanggal 		: %s
 		$terbilang=Terbilang($bayars).'Rupiah';
 		$tanggal=date("d-F-Y", mktime(0, 0, 0, date('m')  ,date('d') , date('Y')));
 		$tempprint2=sprintf($tempprint,$nomor,$nama,$alamat,$bulan_current,$baca_meter_currentt,$bulan_sebelum,$baca_meter_sebelum,$pemakaian,$pemakaian,$jml_bayar,$jml_bayar,$terbilang,$tanggal);
-		
+		 // echo $tempprint2;die;
 		$datainsert=array(
 				'status'=>1
 				);
@@ -317,7 +317,7 @@ Tanggal 		: %s
 		$pathkwitansi='/var/www/html/pam/trunk/kwitansi/kwitansi_GP_'.$alamat.'_'.$nomor.'_'.$bulanbayar.'_'.$tahunbayar.'.txt';
 		file_put_contents($pathkwitansi,$tempprint2);
 		exec("lp ".$pathkwitansi."");
-		//echo "lp ".$pathkwitansi."";
+		// echo "lp ".$pathkwitansi."";die();
 		//exec("lp /var/www/html/pam/trunk/kwitansi/kwitansi2.txt");
 		//echo $tempprint2;
 		//die(); 
@@ -484,10 +484,10 @@ Tanggal 		: %s
 		//for($i=1;$i<=12;$i++){
 			//echo $i.'<br />';
 
-			 $this->pams_m->update_iuran(9,2015);
-			 $this->pams_m->update_iuran(10,2015);
-			 $this->pams_m->update_iuran(11,2015);
-			 $this->pams_m->update_iuran(12,2015);
+			 // $this->pams_m->update_iuran(9,2015);
+			 // $this->pams_m->update_iuran(10,2015);
+			 // $this->pams_m->update_iuran(11,2015);
+			  $this->pams_m->update_iuran(2,2016);
 		//}
 	}
 	public function statistic()

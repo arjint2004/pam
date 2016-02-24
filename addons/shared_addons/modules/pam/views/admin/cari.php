@@ -19,8 +19,9 @@
 					<li class="">
 						<label for="f_status">Tahun</label>
 						<select name="tahun" >
+							<option <?if(@$_POST['tahun']=='semua'){echo 'selected';}elseif(date('Y')=='semua'){echo 'selected';}?> value="0">Semua</option>
 							<? for($y=2015;$y<date('Y')+2;$y++){?>
-							<option <?if(@$_POST['tahun']==$y){echo 'selected';}elseif(date('Y')==$y){echo 'selected';}?> value="<?=$y?>"><?=$y?></option>
+							<option <?if(@$_POST['tahun']==$y){echo 'selected';}?> value="<?=$y?>"><?=$y?></option>
 							<? } ?>
 						</select>
 					</li>
@@ -58,7 +59,10 @@
 							<th>No</th>
 							<th>GP</th>
 							<th class="collapse">Nama</th>
+							<th>Tahun</th>
 							<th>Bulan</th>
+							<th>Baca Meter</th>
+							<th>Baca Meter Sebelum</th>
 							<th>Pakai</th>
 							<th width="180">Bayar</th>
 							<th width="180">Action</th>
@@ -100,7 +104,10 @@
 								<td <?=@$bg?> style="color:<?=$color?>;"><?php echo $i++;?></td>
 								<td <?=@$bg?> style="color:<?=$color?>;">GP <?php echo $datapelanggan['alamat'];?> (<?php echo $datapelanggan['nomor'];?>)</td>
 								<td class="collapse" style="color:<?=$color?>;<? if($datapelanggan['status']==1){ echo 'background-color:darkseagreen;';}else{}?>"><? echo $datapelanggan['nama'];?></td>
+								<td <?=@$bg?> class="collapse"><?=$datapelanggan['tahun']?></td>
 								<td <?=@$bg?> class="collapse"><?=strtoupper(date("F", mktime(0, 0, 0, $bulan_currents[1]  ,$bulan_currents[2] , $bulan_currents[0])))?></td>
+								<td <?=@$bg?> class="collapse"><?=$datapelanggan['baca_meter']?></td>
+								<td <?=@$bg?> class="collapse"><?=$datapelanggan['baca_s']?></td>
 								<td <?=@$bg?> class="collapse"><?=$datapelanggan['baca_meter']-$datapelanggan['baca_s']?></td>
 								<td <?=@$bg?> class="collapse"><?=$bayar?></td>
 								<td <?=@$bg?> class="collapse"><a href="<?=base_url('admin/pam/printkwitansi/'.$datapelanggan['id'].'/'.$bulan_currents[1].'/'.$bulan_currents[0].'')?>" >Print</a> --|-- <a href="<?=base_url('admin/pam/printkwitansi/'.$datapelanggan['id'].'/'.$bulan_currents[1].'/'.$bulan_currents[0].'/1')?>" >No Mark</a></td>  

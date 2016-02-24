@@ -33,12 +33,29 @@ class Pams_m extends MY_Model
 	}
 	public function get_pelanggan_cari($tahun=0,$alamat='',$nama='')
 	{
+		
 		if($alamat=='semua'){
-		$query=$this->db->query("SELECT a.*,b.id as id_pemb,b.id_pelanggan,b.bulan,b.baca_meter,b.harus_bayar,b.dibayar,b.selisih,b.tanggal,b.status, (SELECT baca_meter FROM default_pembayaran WHERE id_pelanggan=a.id AND month(bulan)=month(b.bulan)-1 AND year(b.bulan)=".$tahun.") as baca_s FROM default_pelanggan a JOIN default_pembayaran b ON a.id=b.id_pelanggan WHERE year(b.bulan)=?  AND a.nama LIKE '%".$nama."%'",array($tahun));		
+		
+			if($tahun==0){
+				$tahunz="";
+			}else{
+				$tahunz="year(b.bulan)=".$tahun."  AND";
+			}
+			
+			$query=$this->db->query("SELECT year(b.bulan) as tahun, a.*,b.id as id_pemb,b.id_pelanggan,b.bulan,b.baca_meter,b.harus_bayar,b.dibayar,b.selisih,b.tanggal,b.status, (SELECT baca_meter FROM default_pembayaran WHERE id_pelanggan=a.id AND month(bulan)=month(DATE_SUB(b.bulan, INTERVAL 1 MONTH)) AND year(bulan)=MIN_YEAR(b.bulan, ".$tahun.")) as baca_s FROM default_pelanggan a JOIN default_pembayaran b ON a.id=b.id_pelanggan WHERE ".$tahunz." a.nama LIKE '%".$nama."%'",array($tahun));
+			
 		}else{
-		$query=$this->db->query("SELECT a.*,b.id as id_pemb,b.id_pelanggan,b.bulan,b.baca_meter,b.harus_bayar,b.dibayar,b.selisih,b.tanggal,b.status, (SELECT baca_meter FROM default_pembayaran WHERE id_pelanggan=a.id AND month(bulan)=month(b.bulan)-1 AND year(b.bulan)=".$tahun." AND a.alamat=".$alamat.") as baca_s FROM default_pelanggan a JOIN default_pembayaran b ON a.id=b.id_pelanggan WHERE year(b.bulan)=? AND a.alamat=? AND a.nama LIKE '%".$nama."%'",array($tahun,$alamat));		
+		
+			if($tahun==0){
+				$tahunz="";
+			}else{
+				$tahunz="year(b.bulan)=".$tahun."  AND";
+			}
+			
+			$query=$this->db->query("SELECT year(b.bulan) as tahun, a.*,b.id as id_pemb,b.id_pelanggan,b.bulan,b.baca_meter,b.harus_bayar,b.dibayar,b.selisih,b.tanggal,b.status, (SELECT baca_meter FROM default_pembayaran WHERE id_pelanggan=a.id AND month(bulan)=month(DATE_SUB(b.bulan, INTERVAL 1 MONTH)) AND year(bulan)=MIN_YEAR(b.bulan, ".$tahun.") AND a.alamat=".$alamat.") as baca_s FROM default_pelanggan a JOIN default_pembayaran b ON a.id=b.id_pelanggan WHERE ".$tahun." AND a.alamat=? AND a.nama LIKE '%".$nama."%'",array($alamat));
+			
 		}
-		//echo $this->db->last_query(); die();
+		 // echo $this->db->last_query(); die();
 		return $query->result_array();
 	}
 	public function get_pelanggan()
@@ -52,8 +69,8 @@ class Pams_m extends MY_Model
 		$mulai_bulan=$mulai_bulan-1;
 		
 		$bulan=$this->db->query("SELECT b.bulan FROM default_pelanggan l JOIN default_pembayaran b ON l.id=b.id_pelanggan WHERE b.status=0 AND month(b.bulan)>".$mulai_bulan." GROUP BY b.bulan order by b.id_pelanggan")->result_array();
-		$tunggakan=$this->db->query("SELECT l.nama,l.alamat,l.nomor,b.* FROM default_pelanggan l JOIN default_pembayaran b ON l.id=b.id_pelanggan WHERE  month(b.bulan)>".$mulai_bulan." order by b.id_pelanggan")->result_array();
-		
+		$tunggakan=$this->db->query("SELECT l.nama,l.alamat,l.nomor,b.* FROM default_pelanggan l JOIN default_pembayaran b ON l.id=b.id_pelanggan WHERE  b.bulan>'2015-08-01' order by b.id_pelanggan")->result_array();
+		// echo $this->db->last_query();die;
 		foreach($tunggakan as $key=>$datapelanggan){
 			$tunggakan2[$datapelanggan['id_pelanggan']]['nama']=$datapelanggan['nama'];
 			$tunggakan2[$datapelanggan['id_pelanggan']]['id_pelanggan']=$datapelanggan['id_pelanggan'];
@@ -63,7 +80,7 @@ class Pams_m extends MY_Model
 		unset($tunggakan);
 
 		return $tunggakan2;
-		//echo $this->db->last_query();
+		echo $this->db->last_query();
 		
 	}
 	public function baca_meter_current($bulan=0,$tahun=0,$id_pelanggan=0)
@@ -73,7 +90,7 @@ class Pams_m extends MY_Model
 		if($bulan==0){$bulan=date("m", mktime(0, 0, 0, date('m')-1  ,1 , date('Y')));}else{$bulan=date("m", mktime(0, 0, 0, $bulan  ,1 , $tahun));} 
 		if($tahun==0){$tahun=date("Y", mktime(0, 0, 0, date('m')-1  ,1 , date('Y')));}else{$tahun=date("Y", mktime(0, 0, 0, $bulan  ,1 , $tahun));}
 		$query=$this->db->query("SELECT b.id,b.id_pelanggan,b.bulan,b.baca_meter,b.harus_bayar,b.dibayar,b.selisih,b.tanggal,b.status FROM default_pembayaran b  WHERE month(b.bulan)=? AND year(b.bulan)=? ".$cnd."",array($bulan,$tahun));
-		//echo $this->db->last_query();
+		echo $this->db->last_query();
 		$out=$query->result_array();
 		foreach($out as $cx=>$dataout){
 			$out2[$dataout['id_pelanggan']]=$dataout;
@@ -81,12 +98,16 @@ class Pams_m extends MY_Model
 		unset($out);
 		return $out2;
 	}
-	public function baca_meter_sebelumnya($bulan=0,$tahun=0,$id_pelanggan=0)
+	public function baca_meter_sebelumnya($bulanin=0,$tahun=0,$id_pelanggan=0)
 	{
+		$bulan=$bulanin;
 		if($id_pelanggan!=0){$cnd=' AND b.id_pelanggan='.$id_pelanggan.'';}else{$cnd='';}
 		$out2=array();
+
 		if($bulan==0){$bulan=date("m", mktime(0, 0, 0, date('m')-2  ,1 , date('Y')));}else{$bulan=date("m", mktime(0, 0, 0, $bulan-1  ,1 , $tahun));} 
-		if($tahun==0){$tahun=date("Y", mktime(0, 0, 0, date('m')-2  ,1 , date('Y')));}else{$tahun=date("Y", mktime(0, 0, 0, $bulan-1  ,1 , $tahun));}
+
+		if($tahun==0){$tahun=date("Y", mktime(0, 0, 0, date('m')-2  ,1 , date('Y')));}else{$tahun=date("Y", mktime(0, 0, 0, $bulanin-1  ,1 , $tahun));}
+		
 		$query=$this->db->query("SELECT b.id_pelanggan,b.bulan,b.baca_meter,b.harus_bayar,b.dibayar,b.selisih,b.tanggal,b.status FROM default_pembayaran b  WHERE month(b.bulan)=? AND year(b.bulan)=? ".$cnd."",array($bulan,$tahun));
 		//echo $this->db->last_query();
 		$out=$query->result_array();
@@ -130,10 +151,17 @@ class Pams_m extends MY_Model
 	public function update_iuran($bulan=0,$tahun=0)
 	{
 		$bulanx=date("m", mktime(0, 0, 0, $bulan-1  ,1 , $tahun));
+		$tahunx=date("Y", mktime(0, 0, 0, $bulan-1  ,1 , $tahun));
 		//ambil data pelanggan
 		$pelanggan=$this->get_pelanggan();
-		$baca_meter_current=$this->baca_meter_current($bulanx,$tahun);
-		$baca_meter_sebelumnya=$this->baca_meter_sebelumnya($bulanx,$tahun);
+		$baca_meter_current=$this->baca_meter_current($bulanx,$tahunx);
+		$baca_meter_sebelumnya=$this->baca_meter_sebelumnya($bulanx,$tahunx);
+		// pr($bulan);
+		// pr($tahun);
+		// pr($bulanx);
+		// pr($tahunx);
+		// pr($baca_meter_current);
+		
 		
 		foreach ($pelanggan as $datapelanggan) { 
 			
@@ -149,11 +177,11 @@ class Pams_m extends MY_Model
 		
 		$tgl=date("Y-m-d", mktime(0, 0, 0, $bulan  ,1 , $tahun));
 		$cekPemb=$this->db->query('SELECT * FROM default_pneraca WHERE kode_rek=11 AND tanggal="'.$tgl.'"')->result_array();
-		pr($bulan);
-		pr($tahun);
-		pr($totalb);
-		pr($cekPemb);
-		 echo $this->db->last_query();
+		// pr($bulan);
+		// pr($tahun);
+		// pr($totalb);
+		// pr($cekPemb);
+		 // echo $this->db->last_query();die;
 		$bulanup=date("F Y", mktime(0, 0, 0, $bulan-1  ,1 , $tahun));
 		if(empty($cekPemb)){
 			//insert
