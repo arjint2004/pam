@@ -33,8 +33,7 @@ class Pams_m extends MY_Model
 	}
 	public function get_pelanggan_cari($tahun=0,$alamat='',$nama='')
 	{
-		
-		if($alamat=='semua'){
+		/*		if($alamat=='semua'){
 		
 			if($tahun==0){
 				$tahunz="";
@@ -54,6 +53,27 @@ class Pams_m extends MY_Model
 			
 			$query=$this->db->query("SELECT year(b.bulan) as tahun, a.*,b.id as id_pemb,b.id_pelanggan,b.bulan,b.baca_meter,b.harus_bayar,b.dibayar,b.selisih,b.tanggal,b.status, (SELECT baca_meter FROM default_pembayaran WHERE id_pelanggan=a.id AND month(bulan)=month(DATE_SUB(b.bulan, INTERVAL 1 MONTH)) AND year(bulan)=MIN_YEAR(b.bulan, ".$tahun.") AND a.alamat=".$alamat.") as baca_s FROM default_pelanggan a JOIN default_pembayaran b ON a.id=b.id_pelanggan WHERE ".$tahun." AND a.alamat=? AND a.nama LIKE '%".$nama."%'",array($alamat));
 			
+		}*/
+		if($alamat=='semua'){
+		
+			if($tahun==0){
+				$tahunz="";
+			}else{
+				$tahunz="year(b.bulan)=".$tahun."  AND";
+			}
+			
+			$query=$this->db->query("SELECT year(b.bulan) as tahun, a.*,b.id as id_pemb,b.id_pelanggan,b.bulan,b.baca_meter,b.harus_bayar,b.dibayar,b.selisih,b.tanggal,b.status FROM default_pelanggan a JOIN default_pembayaran b ON a.id=b.id_pelanggan WHERE ".$tahunz." a.nama LIKE '%".$nama."%'",array($tahun));
+			
+		}else{
+		
+			if($tahun==0){
+				$tahunz="";
+			}else{
+				$tahunz="year(b.bulan)=".$tahun."  AND";
+			}
+			
+			$query=$this->db->query("SELECT year(b.bulan) as tahun, a.*,b.id as id_pemb,b.id_pelanggan,b.bulan,b.baca_meter,b.harus_bayar,b.dibayar,b.selisih,b.tanggal,b.status FROM default_pelanggan a JOIN default_pembayaran b ON a.id=b.id_pelanggan WHERE ".$tahun." AND a.alamat=? AND a.nama LIKE '%".$nama."%'",array($alamat));
+			
 		}
 		 // echo $this->db->last_query(); die();
 		return $query->result_array();
@@ -64,12 +84,13 @@ class Pams_m extends MY_Model
 		//echo $this->db->last_query(); 
 		return $query->result_array();
 	}
+	
 	public function get_pembayaranMenunggak($mulai_bulan=9)
 	{
-		$mulai_bulan=$mulai_bulan-1;
+		//$mulai_bulan=$mulai_bulan-1;
 		
-		$bulan=$this->db->query("SELECT b.bulan FROM default_pelanggan l JOIN default_pembayaran b ON l.id=b.id_pelanggan WHERE b.status=0 AND month(b.bulan)>".$mulai_bulan." GROUP BY b.bulan order by b.id_pelanggan")->result_array();
-		$tunggakan=$this->db->query("SELECT l.nama,l.alamat,l.nomor,b.* FROM default_pelanggan l JOIN default_pembayaran b ON l.id=b.id_pelanggan WHERE  b.bulan>'2015-08-01' order by b.id_pelanggan")->result_array();
+		//$bulan=$this->db->query("SELECT b.bulan FROM default_pelanggan l JOIN default_pembayaran b ON l.id=b.id_pelanggan WHERE b.status=0 AND month(b.bulan)>".$mulai_bulan." GROUP BY b.bulan order by b.id_pelanggan")->result_array();
+		$tunggakan=$this->db->query("SELECT l.nama,l.alamat,l.nomor,b.* FROM default_pelanggan l JOIN default_pembayaran b ON l.id=b.id_pelanggan WHERE  b.bulan>'2015-08-01' order by l.alamat,b.id_pelanggan")->result_array();
 		// echo $this->db->last_query();die;
 		foreach($tunggakan as $key=>$datapelanggan){
 			$tunggakan2[$datapelanggan['id_pelanggan']]['nama']=$datapelanggan['nama'];
@@ -78,9 +99,9 @@ class Pams_m extends MY_Model
 			$tunggakan2[$datapelanggan['id_pelanggan']]['bulan'][$datapelanggan['bulan']]=$datapelanggan;
 		}
 		unset($tunggakan);
-
+		// pr($tunggakan2);die;
 		return $tunggakan2;
-		echo $this->db->last_query();
+		// echo $this->db->last_query();
 		
 	}
 	public function baca_meter_current($bulan=0,$tahun=0,$id_pelanggan=0)
@@ -90,7 +111,7 @@ class Pams_m extends MY_Model
 		if($bulan==0){$bulan=date("m", mktime(0, 0, 0, date('m')-1  ,1 , date('Y')));}else{$bulan=date("m", mktime(0, 0, 0, $bulan  ,1 , $tahun));} 
 		if($tahun==0){$tahun=date("Y", mktime(0, 0, 0, date('m')-1  ,1 , date('Y')));}else{$tahun=date("Y", mktime(0, 0, 0, $bulan  ,1 , $tahun));}
 		$query=$this->db->query("SELECT b.id,b.id_pelanggan,b.bulan,b.baca_meter,b.harus_bayar,b.dibayar,b.selisih,b.tanggal,b.status FROM default_pembayaran b  WHERE month(b.bulan)=? AND year(b.bulan)=? ".$cnd."",array($bulan,$tahun));
-		echo $this->db->last_query();
+		// echo $this->db->last_query();
 		$out=$query->result_array();
 		foreach($out as $cx=>$dataout){
 			$out2[$dataout['id_pelanggan']]=$dataout;

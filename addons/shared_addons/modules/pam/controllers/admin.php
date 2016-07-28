@@ -34,7 +34,18 @@ class Admin extends Admin_Controller {
 		}else{
 			$pelanggan=array();
 		}
-		//pr($baca_meter_sebelumnya);die(); 
+		foreach($pelanggan as $ff=>$dtpl){
+			$bl=explode('-',$dtpl['bulan']);
+			$mminsatu=date("Y-m", mktime(0, 0, 0, $bl[1]-1  ,$bl[2] , $bl[0]));
+			$blx=explode('-',$mminsatu);
+			$baca_s=$this->db->query("SELECT baca_meter FROM default_pembayaran WHERE id_pelanggan=".$dtpl['id_pelanggan']." AND month(bulan)=".$blx[1]." AND year(bulan)=".$blx[0]." ")->result_array();
+			$pelanggan[$ff]['baca_s']=$baca_s[0]['baca_meter'];
+			// echo $this->db->last_query();
+			// pr($baca_s);
+			
+		}
+		 // die;
+		// pr($pelanggan);die;
 		// set template vars and build
 		$this->template
 			->set('settings', $this->pams_m->get_settings())

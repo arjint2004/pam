@@ -110,7 +110,7 @@
 								<td <?=@$bg?> class="collapse"><?=$datapelanggan['baca_s']?></td>
 								<td <?=@$bg?> class="collapse"><?=$datapelanggan['baca_meter']-$datapelanggan['baca_s']?></td>
 								<td <?=@$bg?> class="collapse"><?=$bayar?></td>
-								<td <?=@$bg?> class="collapse"><a href="<?=base_url('admin/pam/printkwitansi/'.$datapelanggan['id'].'/'.$bulan_currents[1].'/'.$bulan_currents[0].'')?>" >Print</a> --|-- <a href="<?=base_url('admin/pam/printkwitansi/'.$datapelanggan['id'].'/'.$bulan_currents[1].'/'.$bulan_currents[0].'/1')?>" >No Mark</a></td>  
+								<td <?=@$bg?> class="collapse"><a href="<?=base_url('admin/pam/printkwitansi/'.$datapelanggan['id'].'/'.$bulan_currents[1].'/'.$bulan_currents[0].'')?>" >Print</a> --|-- <a href="<?=base_url('admin/pam/printkwitansi/'.$datapelanggan['id'].'/'.$bulan_currents[1].'/'.$bulan_currents[0].'/1')?>" >No Mark</a> | <a href="<?=base_url('admin/pam/unmark/'.$datapelanggan['id'].'/'.$bulan_currents[1].'/'.$bulan_currents[0].'/2')?>" >UnMark</a></td>  
 							</tr>
 						<?php } ?>
 					</tbody>

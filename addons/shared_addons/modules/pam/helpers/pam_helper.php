@@ -5,11 +5,15 @@ if (!function_exists('bayar')) {
 
 		switch($jenis){
 			case 'normal':
-				if($bln_sebelum==0 && $bulan_current!=0){
+			
+				if($bln_sebelum==0 && $bulan_current==0){
+					$bayar=0;
+				}elseif($bln_sebelum==0 && $bulan_current!=0){
 					// if(($pemakaian-10)<=5){
 						// $bayar=15000;
 					// }else{
 						$bayar=((($pemakaian)-10)*2000)+15000;//echo '((('.$pemakaian.')-10)*2000)+15000===';
+						if($bayar<15000){$bayar=15000;}
 					// }
 				}elseif($pemakaian<=5){
 					$bayar=15000;
