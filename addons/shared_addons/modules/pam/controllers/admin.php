@@ -67,6 +67,21 @@ class Admin extends Admin_Controller {
 			}
 			
 	}
+	public function laporan_penagihanunproses($id_pelanggan=0,$id_pembayaran=0)
+	{
+		$datainsert=array(
+				'status'=>0,
+				'penagihan'=>0,
+				'bulan_penagihan'=>'0000-00-00'
+				);
+			$this->db->where('id',$id_pembayaran);
+			if($this->db->update('default_pembayaran',$datainsert)){
+				echo 1;
+			}else{
+				echo 0;
+			}
+			
+	}
 	public function laporan_penagihan($print=0)
 	{
 		$alamatx="";
@@ -162,6 +177,22 @@ class Admin extends Admin_Controller {
 			->set('neraca', $totdata)
 			->set('saldo_bulan_lalu', $saldo_bulan_lalu)
 			->build('admin/pembukuan');			 
+	}	
+	
+	public function neraca()
+	{	
+		$rekening=$this->db->query("SELECT * FROM default_pnama_rekening ")->result_array();
+		if(isset($_POST['tahun'])){
+			$neraca=$this->db->query("SELECT n.*,r.nama FROM default_pneraca n JOIN default_pnama_rekening r ON n.kode_rek=r.id WHERE year(n.tanggal)='".$_POST['tahun']."' ORDER BY n.tanggal ASC")->result_array();
+		}else{
+			$neraca=$this->db->query("SELECT n.*,r.nama FROM default_pneraca n JOIN default_pnama_rekening r ON n.kode_rek=r.id WHERE year(n.tanggal)='".date('Y')."' ORDER BY n.tanggal ASC")->result_array();
+		}
+
+		$totdata=$neraca;
+		$this->template
+			->set('neraca', $totdata)
+			->set('saldo_bulan_lalu', $saldo_bulan_lalu)
+			->build('admin/neraca');			 
 	}
 	public function print_transaksi($id=0)
 	{ 
@@ -355,6 +386,96 @@ Tanggal 		: %s
 			//echo $this->db->last_query();
 		}	
 	}
+	public function print_data()
+	{   
+		
+		if(isset($_POST['bulan']) && isset($_POST['tahun'])){
+			$pelanggan=$this->pams_m->get_pelanggan($_POST['bulan'],$_POST['tahun']);
+			$baca_meter_current=$this->pams_m->baca_meter_current($_POST['bulan'],$_POST['tahun']);
+			$baca_meter_sebelumnya=$this->pams_m->baca_meter_sebelumnya($_POST['bulan'],$_POST['tahun']);
+			$bulan_sebelum=date("M", mktime(0, 0, 0, $_POST['bulan']-1, 10));
+			$bulan=date("M", mktime(0, 0, 0, $_POST['bulan'], 10));
+			
+			$bulan_sebelum_a=date("Y-m-d", mktime(0, 0, 0, $_POST['bulan']-1  ,1 , $_POST['tahun']));
+			$bulan_a=date("Y-m-d", mktime(0, 0, 0, $_POST['bulan']  ,1 , $_POST['tahun']));	
+			
+			$bln=date("m", mktime(0, 0, 0, $_POST['bulan']  ,1 , $_POST['tahun']));		
+			$thn=date("Y", mktime(0, 0, 0, $_POST['bulan']  ,1 , $_POST['tahun']));		
+		}else{
+			$pelanggan=$this->pams_m->get_pelanggan();
+			$baca_meter_current=$this->pams_m->baca_meter_current();
+			$baca_meter_sebelumnya=$this->pams_m->baca_meter_sebelumnya();
+			$bulan_sebelum=date("M", mktime(0, 0, 0, date('m')-2, 10));
+			$bulan=date("M", mktime(0, 0, 0, date('m')-1, 10));
+			
+			$bulan_sebelum_a=date("Y-m-d", mktime(0, 0, 0, date('m')-2  ,1 , date('Y')));
+			$bulan_a=date("Y-m-d", mktime(0, 0, 0, date('m')-1  ,1 , date('Y')));
+			
+			$bln=date("m", mktime(0, 0, 0, date('m')-1  ,1 , date('Y')));
+			$thn=date("Y", mktime(0, 0, 0, date('m')-1  ,1 , date('Y')));
+		}
+		
+		//pr($baca_meter_sebelumnya);die(); 
+		// set template vars and build
+		$this->template
+			->set('settings', $this->pams_m->get_settings())
+			->set('baca_meter_current', $baca_meter_current)
+			->set('baca_meter_sebelumnya', $baca_meter_sebelumnya)
+			->set('pelanggan', $pelanggan)
+			->set('bulan_sebelum', $bulan_sebelum)
+			->set('bulan', $bulan)
+			->set('bulan_sebelum_a', $bulan_sebelum_a)
+			->set('bulan_a', $bulan_a)
+			->set('bln', $bln)
+			->set('thn', $thn)
+			->set_layout('print')
+			->build('admin/printdata');	
+	}
+	public function print_datack()
+	{   
+		
+		if(isset($_POST['bulan']) && isset($_POST['tahun'])){
+			$pelanggan=$this->pams_m->get_pelanggan($_POST['bulan'],$_POST['tahun']);
+			$baca_meter_current=$this->pams_m->baca_meter_current($_POST['bulan'],$_POST['tahun']);
+			$baca_meter_sebelumnya=$this->pams_m->baca_meter_sebelumnya($_POST['bulan'],$_POST['tahun']);
+			$bulan_sebelum=date("M", mktime(0, 0, 0, $_POST['bulan']-1, 10));
+			$bulan=date("M", mktime(0, 0, 0, $_POST['bulan'], 10));
+			
+			$bulan_sebelum_a=date("Y-m-d", mktime(0, 0, 0, $_POST['bulan']-1  ,1 , $_POST['tahun']));
+			$bulan_a=date("Y-m-d", mktime(0, 0, 0, $_POST['bulan']  ,1 , $_POST['tahun']));	
+			
+			$bln=date("m", mktime(0, 0, 0, $_POST['bulan']  ,1 , $_POST['tahun']));		
+			$thn=date("Y", mktime(0, 0, 0, $_POST['bulan']  ,1 , $_POST['tahun']));		
+		}else{
+			$pelanggan=$this->pams_m->get_pelanggan();
+			$baca_meter_current=$this->pams_m->baca_meter_current();
+			$baca_meter_sebelumnya=$this->pams_m->baca_meter_sebelumnya();
+			$bulan_sebelum=date("M", mktime(0, 0, 0, date('m')-2, 10));
+			$bulan=date("M", mktime(0, 0, 0, date('m')-1, 10));
+			
+			$bulan_sebelum_a=date("Y-m-d", mktime(0, 0, 0, date('m')-2  ,1 , date('Y')));
+			$bulan_a=date("Y-m-d", mktime(0, 0, 0, date('m')-1  ,1 , date('Y')));
+			
+			$bln=date("m", mktime(0, 0, 0, date('m')-1  ,1 , date('Y')));
+			$thn=date("Y", mktime(0, 0, 0, date('m')-1  ,1 , date('Y')));
+		}
+		
+		//pr($baca_meter_sebelumnya);die(); 
+		// set template vars and build
+		$this->template
+			->set('settings', $this->pams_m->get_settings())
+			->set('baca_meter_current', $baca_meter_current)
+			->set('baca_meter_sebelumnya', $baca_meter_sebelumnya)
+			->set('pelanggan', $pelanggan)
+			->set('bulan_sebelum', $bulan_sebelum)
+			->set('bulan', $bulan)
+			->set('bulan_sebelum_a', $bulan_sebelum_a)
+			->set('bulan_a', $bulan_a)
+			->set('bln', $bln)
+			->set('thn', $thn)
+			->set_layout('print')
+			->build('admin/printceklist');	
+	}
 	public function lihat_data()
 	{   
 		
@@ -479,7 +600,7 @@ Tanggal 		: %s
 		$this->template
 			->set('settings', $this->pams_m->get_settings())
 			->set('pembayaranMenunggak', $pembayaranMenunggak)
-			->build('admin/tunggakan');	
+			->build('admin/tunggakan2');	
 	}
 	public function print_tunggakan()
 	{
@@ -498,7 +619,10 @@ Tanggal 		: %s
 			 // $this->pams_m->update_iuran(9,2015);
 			 // $this->pams_m->update_iuran(10,2015);
 			 // $this->pams_m->update_iuran(11,2015);
-			  $this->pams_m->update_iuran(2,2016);
+			  $this->pams_m->update_iuran(9,2016);
+			  $this->pams_m->update_iuran(10,2016);
+			  $this->pams_m->update_iuran(11,2016);
+			  $this->pams_m->update_iuran(12,2016);
 		//}
 	}
 	public function statistic()

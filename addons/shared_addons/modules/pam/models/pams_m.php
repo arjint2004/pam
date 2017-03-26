@@ -181,7 +181,7 @@ class Pams_m extends MY_Model
 		// pr($tahun);
 		// pr($bulanx);
 		// pr($tahunx);
-		// pr($baca_meter_current);
+		// pr($baca_meter_current); 
 		
 		
 		foreach ($pelanggan as $datapelanggan) { 
@@ -190,7 +190,7 @@ class Pams_m extends MY_Model
 			if($baca_meter_current[$datapelanggan['id']]['status']==1){ 
 				$bayar=bayar(@$baca_meter_sebelumnya[$datapelanggan['id']]['baca_meter'],@$baca_meter_current[$datapelanggan['id']]['baca_meter'],$datapelanggan['jenis']);
 				$totalb=$totalb+$bayar;
-				// echo $bayar.'<br />';
+				 echo $datapelanggan['nama'].'=='.$datapelanggan['alamat'].'==='.$bayar.'<br />';
 			}
 		}
 		 
