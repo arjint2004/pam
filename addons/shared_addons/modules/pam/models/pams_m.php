@@ -90,7 +90,7 @@ class Pams_m extends MY_Model
 		//$mulai_bulan=$mulai_bulan-1;
 		
 		//$bulan=$this->db->query("SELECT b.bulan FROM default_pelanggan l JOIN default_pembayaran b ON l.id=b.id_pelanggan WHERE b.status=0 AND month(b.bulan)>".$mulai_bulan." GROUP BY b.bulan order by b.id_pelanggan")->result_array();
-		$tunggakan=$this->db->query("SELECT l.nama,l.alamat,l.nomor,b.* FROM default_pelanggan l JOIN default_pembayaran b ON l.id=b.id_pelanggan WHERE  b.bulan>'2015-08-01' order by l.alamat,b.id_pelanggan")->result_array();
+		$tunggakan=$this->db->query("SELECT l.nama,l.alamat,l.nomor,b.* FROM default_pelanggan l JOIN default_pembayaran b ON l.id=b.id_pelanggan WHERE  b.bulan>'2016-9-01' order by l.alamat,b.id_pelanggan")->result_array();
 		// echo $this->db->last_query();die;
 		foreach($tunggakan as $key=>$datapelanggan){
 			$tunggakan2[$datapelanggan['id_pelanggan']]['nama']=$datapelanggan['nama'];
@@ -214,7 +214,8 @@ class Pams_m extends MY_Model
 						'kredit' => 0,
 						'file' =>''
 			);
-			$this->db->insert('default_pneraca',$datainsert);
+			pr($datainsert);
+			// $this->db->insert('default_pneraca',$datainsert);
 		}else{
 			//update
 			$this->db->where('id',$cekPemb[0]['id']);
@@ -226,8 +227,8 @@ class Pams_m extends MY_Model
 						'kredit' => 0,
 						'file' =>''
 			);
-			$this->db->update('default_pneraca',$datainsert);
-			
+			// $this->db->update('default_pneraca',$datainsert);
+			pr($datainsert);
 		}
 		 echo $this->db->last_query();
 		//inputkan ke table neraca di posisi bulan berikutnya

@@ -619,10 +619,14 @@ Tanggal 		: %s
 			 // $this->pams_m->update_iuran(9,2015);
 			 // $this->pams_m->update_iuran(10,2015);
 			 // $this->pams_m->update_iuran(11,2015);
-			  $this->pams_m->update_iuran(9,2016);
-			  $this->pams_m->update_iuran(10,2016);
-			  $this->pams_m->update_iuran(11,2016);
-			  $this->pams_m->update_iuran(12,2016);
+			  // $this->pams_m->update_iuran(9,2016);
+			  // $this->pams_m->update_iuran(10,2016);
+			  // $this->pams_m->update_iuran(11,2016);
+			  // $this->pams_m->update_iuran(12,2016);
+			  $this->pams_m->update_iuran(1,2017);
+			  $this->pams_m->update_iuran(2,2017);
+			  $this->pams_m->update_iuran(3,2017);
+			  $this->pams_m->update_iuran(4,2017);
 		//}
 	}
 	public function statistic()
