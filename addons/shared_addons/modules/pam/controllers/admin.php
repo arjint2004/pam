@@ -185,7 +185,7 @@ class Admin extends Admin_Controller {
 		if(isset($_POST['tahun'])){
 			$neraca=$this->db->query("SELECT n.*,r.nama FROM default_pneraca n JOIN default_pnama_rekening r ON n.kode_rek=r.id WHERE year(n.tanggal)='".$_POST['tahun']."' ORDER BY n.tanggal ASC")->result_array();
 		}else{
-			$neraca=$this->db->query("SELECT n.*,r.nama FROM default_pneraca n JOIN default_pnama_rekening r ON n.kode_rek=r.id WHERE year(n.tanggal)='".date('Y')."' ORDER BY n.tanggal ASC")->result_array();
+			$neraca=$this->db->query("SELECT n.*,r.nama FROM default_pneraca n JOIN default_pnama_rekening r ON n.kode_rek=r.id ORDER BY n.tanggal ASC")->result_array();
 		}
 
 		$totdata=$neraca;
@@ -623,10 +623,12 @@ Tanggal 		: %s
 			  // $this->pams_m->update_iuran(10,2016);
 			  // $this->pams_m->update_iuran(11,2016);
 			  // $this->pams_m->update_iuran(12,2016);
-			  $this->pams_m->update_iuran(1,2017);
-			  $this->pams_m->update_iuran(2,2017);
-			  $this->pams_m->update_iuran(3,2017);
+			  // $this->pams_m->update_iuran(1,2017);
+			  // $this->pams_m->update_iuran(2,2017);
+			  // $this->pams_m->update_iuran(3,2017);
 			  $this->pams_m->update_iuran(4,2017);
+			  $this->pams_m->update_iuran(5,2017);
+			  $this->pams_m->update_iuran(6,2017);
 		//}
 	}
 	public function statistic()

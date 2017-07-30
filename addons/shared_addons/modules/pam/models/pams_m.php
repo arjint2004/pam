@@ -215,7 +215,7 @@ class Pams_m extends MY_Model
 						'file' =>''
 			);
 			pr($datainsert);
-			// $this->db->insert('default_pneraca',$datainsert);
+			$this->db->insert('default_pneraca',$datainsert);
 		}else{
 			//update
 			$this->db->where('id',$cekPemb[0]['id']);
